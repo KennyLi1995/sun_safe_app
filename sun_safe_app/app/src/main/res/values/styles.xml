@@ -2,4 +2,11 @@
 <resources>
 
 
+
+    <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_button_style</item>
+    </style>
+
+
+
 </resources>

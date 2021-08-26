@@ -11,6 +11,11 @@
     <dimen name="spacing_xxxlarge">60dp</dimen>
     <dimen name="drag_dismiss_distance">112dp</dimen>
     <dimen name="card_view_height">280dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="_70dp">50dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+    <dimen name="_30dp">30dp</dimen>
 
     <!-- 2 * ?android:actionBarSize -->
 

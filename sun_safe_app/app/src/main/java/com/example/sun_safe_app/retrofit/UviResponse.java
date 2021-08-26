@@ -7,8 +7,7 @@ import java.util.ArrayList;
 public class UviResponse {
     @SerializedName("result")
     public ArrayList<Weather> weather = new ArrayList<Weather>();
-    @SerializedName("main")
-    public Main main;
+
     @SerializedName("name")
     public String name;
 }

@@ -8,13 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="dialog_1">#03A9F4</color>
+
 
     <!--底部导航栏颜色-->
     <color name="colortext">#79FFFFFF</color><!--默认显示-->
     <color name="colortextDark">#FFFFFF</color><!--点击显示-->
     <color name="colorPrimary">#0E74C3</color><!--默认显示-->
 
-    <color name="colorPrimaryDark">#dddddd</color>
+    <color name="colorPrimaryDark">#3813FF</color>
     <color name="colorAccent">#D81B60</color>
     <color name="overlay_dark_50">#40000000</color>
     <color name="material_blue">#6452f0</color>

@@ -1,5 +1,6 @@
 package com.example.sun_safe_app.ui.uvi;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -15,6 +16,7 @@ import com.example.sun_safe_app.databinding.FragmentUviBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,8 +54,12 @@ public class UviFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
+
         binding = FragmentUviBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+
+
 
 //        binding.animationView.setAnimation(AppUtil.getWeatherAnimation(500));
 //        binding.animationView.playAnimation();
@@ -92,8 +98,9 @@ public class UviFragment extends Fragment {
                     int temp = Math.round(weatherResponse.current.temp);
                     binding.uvdataText.setText(uvi + "");
                     binding.tempText.setText(temp + "");
+                    binding.weatherText.setText(weatherResponse.current.weather.get(0).main);
 
-
+//                    binding.weatherText.setText(weatherResponse.current.weather.main);
 
                 }
                 else {
@@ -115,6 +122,9 @@ public class UviFragment extends Fragment {
 
         return view;
     }
+
+
+
 
 
 }
