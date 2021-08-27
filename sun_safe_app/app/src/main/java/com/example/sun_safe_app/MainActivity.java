@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -57,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected LocationManager locationManager;
     private String currentLocation;
     private String current_locality;
+
+
+    private String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS};
+    private static final int OPEN_SET_REQUEST_CODE = 100;
+
 
 
 
@@ -85,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
 
-
+        initPermissions();
 
 
         Intent intent=getIntent();
@@ -204,6 +210,66 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 nextFragment);
         fragmentTransaction.commit();
     }
+
+
+    //调用此方法判断是否拥有权限
+    private void initPermissions() {
+
+
+        final int OPEN_SET_REQUEST_CODE = 100;
+        if (lacksPermission(permissions)) {//判断是否拥有权限
+            //请求权限，第二参数权限String数据，第三个参数是请求码便于在onRequestPermissionsResult 方法中根据code进行判断
+            ActivityCompat.requestPermissions(this, permissions, OPEN_SET_REQUEST_CODE);
+        } else {
+            //拥有权限执行操作
+        }
+    }
+
+    public boolean lacksPermission(String[] permissions) {
+        for (String permission : permissions) {
+            //判断是否缺少权限，true=缺少权限
+            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){//响应Code
+            case OPEN_SET_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    for(int i = 0; i < grantResults.length; i++){
+                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(this,"Searching for your current location...",Toast.LENGTH_LONG).show();
+                            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return;
+                            }
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, this);
+                            return;
+                        }
+                    }
+                    //拥有权限执行操作
+                } else {
+                    Toast.makeText(this,"Don't have access to location!",Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }
+
+
 
 
 
