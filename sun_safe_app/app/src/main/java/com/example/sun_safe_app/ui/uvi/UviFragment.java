@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.sun_safe_app.MainActivity;
 import com.example.sun_safe_app.databinding.FragmentUviBinding;
 
 
@@ -61,6 +63,7 @@ public class UviFragment extends Fragment {
 
 
 
+
 //        binding.animationView.setAnimation(AppUtil.getWeatherAnimation(500));
 //        binding.animationView.playAnimation();
 
@@ -99,6 +102,10 @@ public class UviFragment extends Fragment {
                     binding.uvdataText.setText(uvi + "");
                     binding.tempText.setText(temp + "");
                     binding.weatherText.setText(weatherResponse.current.weather.get(0).main);
+                    changeColor(uvi);
+
+                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
+                    binding.animationView.playAnimation();
 
 //                    binding.weatherText.setText(weatherResponse.current.weather.main);
 
@@ -121,6 +128,51 @@ public class UviFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void changeColor(int uvData){
+        if (uvData <= 2){
+            binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorLowUV));
+            binding.uvdataText.setTextColor(getResources().getColor(R.color.colorLowUV));
+            binding.uvLevelText.setText("Low");
+        }
+        else if (uvData <= 5){
+            binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorMediumUV));
+            binding.uvdataText.setTextColor(getResources().getColor(R.color.colorMediumUV));
+            binding.uvLevelText.setText("Medium");
+        }
+        else if (uvData <= 7){
+            binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorHighUV));
+            binding.uvdataText.setTextColor(getResources().getColor(R.color.colorHighUV));
+            binding.uvLevelText.setText("High");
+        }
+        else if (uvData <= 10){
+            binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorVeryHighUV));
+            binding.uvdataText.setTextColor(getResources().getColor(R.color.colorVeryHighUV));
+            binding.uvLevelText.setText("Very High");
+        }
+        else{
+            binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorExtremelyHighUV));
+            binding.uvdataText.setTextColor(getResources().getColor(R.color.colorExtremelyHighUV));
+            binding.uvLevelText.setText("Extremly High");
+        }
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((MainActivity) getActivity()).selectBottomMenu(0); //change value depending on your bottom menu position
+    }
+
+    @Override
+    public void onPause() {
+
+        super.onPause();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
     }
 
 

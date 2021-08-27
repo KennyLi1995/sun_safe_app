@@ -16,6 +16,7 @@
     <color name="colortextDark">#FFFFFF</color><!--点击显示-->
     <color name="colorPrimary">#0E74C3</color><!--默认显示-->
 
+
     <color name="colorPrimaryDark">#3813FF</color>
     <color name="colorAccent">#D81B60</color>
     <color name="overlay_dark_50">#40000000</color>
@@ -25,5 +26,13 @@
     <color name="colorPrimaryNight">#263238</color>
     <color name="colorPrimaryDarkNight">#141d26</color>
     <color name="scrim">#99323232</color>
+
+    <color name="colorLowUV">#A7FB09</color>
+    <color name="colorMediumUV">#FDE721</color>
+    <color name="colorHighUV">#FF9800</color>
+    <color name="colorVeryHighUV">#FD3324</color>
+    <color name="colorExtremelyHighUV">#9C27B0</color>
+
+
 
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
+    android:clickable="true"
     android:layout_height="match_parent"
     >
 
@@ -168,7 +169,6 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
-            android:onClick="clickSubmit"
             android:padding="5dp"
             android:background="@drawable/button_submit"
             android:text="submit"

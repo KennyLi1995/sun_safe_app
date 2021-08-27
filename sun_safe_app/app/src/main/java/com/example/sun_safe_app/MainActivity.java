@@ -2,6 +2,7 @@ package com.example.sun_safe_app;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,7 +13,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,9 +24,12 @@ import com.example.sun_safe_app.databinding.ActivityMainBinding;
 import com.example.sun_safe_app.retrofit.RetrofitClient;
 import com.example.sun_safe_app.retrofit.RetrofitInterface;
 import com.example.sun_safe_app.retrofit.WeatherResponse;
+import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
+import com.example.sun_safe_app.ui.uvi.UviFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private String current_locality;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +84,28 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
+
+
+
+
+        Intent intent=getIntent();
+        int bigMake=intent.getIntExtra("bigMake",0);
+        if (bigMake == 1) {
+            intent.putExtra("bigMake",0);
+            MySkinFragment aFragment=new MySkinFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment,aFragment).commit();
+            getSupportActionBar().setTitle("My Skin");
+
+
+        }
+
+
+
+
+
+        int prev_nav_item = 0;
+
 
 
 
@@ -115,9 +145,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 String country = addresses.get(0).getCountryName();
                 String postalCode = addresses.get(0).getPostalCode();
                 String knownName = addresses.get(0).getFeatureName();
+                String trueAddress = locality + ", " + state + "，" +country;
                 UviFragmentModel vm = new
                         ViewModelProvider(this).get(UviFragmentModel.class);
-                vm.setMessage(address);
+                vm.setMessage(trueAddress);
                 if (subLocality != null) {
 
                     currentLocation = locality + "," + subLocality;
@@ -155,6 +186,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void selectBottomMenu(final int position) {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        Menu menu = bottomNavigationView.getMenu();
+            MenuItem item = menu.getItem(position);
+            item.setChecked(true);
+
     }
 
     private void replaceFragment(Fragment nextFragment) {

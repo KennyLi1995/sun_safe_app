@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -19,8 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
+import com.example.sun_safe_app.MainActivity;
 import com.example.sun_safe_app.R;
 import com.example.sun_safe_app.databinding.FragmentMySkinBinding;
 import com.example.sun_safe_app.databinding.FragmentUviBinding;
@@ -38,8 +43,6 @@ public class MySkinFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMySkinBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-
 
         binding.cardViewSkintype.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.navigation_quiz, null)
@@ -61,6 +64,15 @@ public class MySkinFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).selectBottomMenu(1); //change value depending on your bottom menu position
     }
 
 //    //单选对话框
