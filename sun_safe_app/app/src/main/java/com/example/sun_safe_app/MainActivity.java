@@ -26,6 +26,7 @@ import com.example.sun_safe_app.retrofit.RetrofitInterface;
 import com.example.sun_safe_app.retrofit.WeatherResponse;
 import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragment;
+import com.example.sun_safe_app.ui.uvi.UviFragmentLatLongModel;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -154,6 +155,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 String trueAddress = locality + ", " + state + "，" +country;
                 UviFragmentModel vm = new
                         ViewModelProvider(this).get(UviFragmentModel.class);
+                vm.setMessage(trueAddress);
+                UviFragmentLatLongModel vmLatLong = new
+                        ViewModelProvider(this).get(UviFragmentLatLongModel.class);
+                float lat = (float) location.getLatitude();
+                float longitude = (float) location.getLongitude();
+                String laLong = lat + " " +longitude;
+                vmLatLong.setMessage(laLong);
+
                 vm.setMessage(trueAddress);
                 if (subLocality != null) {
 

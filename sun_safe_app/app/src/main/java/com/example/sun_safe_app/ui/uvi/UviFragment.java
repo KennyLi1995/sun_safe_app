@@ -32,6 +32,7 @@ import com.squareup.okhttp.*;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,13 +76,93 @@ public class UviFragment extends Fragment {
             }
         });
 
+        UviFragmentLatLongModel vmlatlong =  new ViewModelProvider(getActivity()).get(UviFragmentLatLongModel.class);;
+        vmlatlong.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                if (s.length() != 0 ){
+                    String[] ss = s.split(" ");
+                    String lat = ss[0];
+                    String longi = ss[1];
+                    updateWeather(lat,longi);
 
+                }
+            }
+        });
+
+
+//        // get the weather message using retrofit
+//        retrofitInterface = RetrofitClient.getRetrofitService();
+//        Call<WeatherResponse> callAsync =
+//                retrofitInterface.weatherSearch("-37.8136",
+//                        "144.9631","metric","",
+//                        "06c51bfd1f1dd5479b28cd21ff8534dd");
+//        //makes an async request & invokes callback methods when the response returns
+//        callAsync.enqueue(new Callback<WeatherResponse>() {
+//            @Override
+//            public void onResponse(Call<WeatherResponse> call,
+//                                   Response<WeatherResponse> response) {
+//                Log.d("Weather Response ",response.body().toString());
+//                if (response.isSuccessful()) {
+//                    // if success call, change the weather message on home screen
+//                    WeatherResponse weatherResponse = response.body();
+//                    String result= response.body().toString();
+////                    binding.locationText.setText("Current uvi: " + weatherResponse.current.uvi
+////                            + "\n"
+////                        + "Current temp: " + weatherResponse.current.temp
+////                                    + "\n"
+//////                    );
+//                    int uvi = Math.round(weatherResponse.current.uvi);
+//                    int temp = Math.round(weatherResponse.current.temp);
+//                    binding.uvdataText.setText(uvi + "");
+//                    binding.tempText.setText(temp + "");
+//                    binding.weatherText.setText(weatherResponse.current.weather.get(0).main);
+//                    changeColor(uvi);
+//
+//                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
+//                    binding.animationView.playAnimation();
+//
+////                    binding.weatherText.setText(weatherResponse.current.weather.main);
+//
+//                }
+//                else {
+//                    Log.e("Error ","Response failed");
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT);
+//
+//            }
+//
+//        });
+
+//                            int uvi = 3;
+//                    int temp = 12;
+//                    binding.uvdataText.setText(uvi + "");
+//                    binding.tempText.setText(temp + "");
+//                    binding.weatherText.setText("clouds");
+//                    changeColor(uvi);
+
+//                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(800));
+//                    binding.animationView.playAnimation();
+//
+//                  binding.weatherText.setText("clouds");
+
+
+
+
+
+        return view;
+    }
+
+    public void updateWeather(String lat, String longi){
         // get the weather message using retrofit
         retrofitInterface = RetrofitClient.getRetrofitService();
         Call<WeatherResponse> callAsync =
-                retrofitInterface.weatherSearch("-37.8136",
-                        "144.9631","metric","",
-                        "a10215765c5afc9587cd4e6924b695db");
+                retrofitInterface.weatherSearch(lat,
+                        longi,"metric","",
+                        "06c51bfd1f1dd5479b28cd21ff8534dd");
         //makes an async request & invokes callback methods when the response returns
         callAsync.enqueue(new Callback<WeatherResponse>() {
             @Override
@@ -123,11 +204,6 @@ public class UviFragment extends Fragment {
         });
 
 
-
-
-
-
-        return view;
     }
 
     public void changeColor(int uvData){
