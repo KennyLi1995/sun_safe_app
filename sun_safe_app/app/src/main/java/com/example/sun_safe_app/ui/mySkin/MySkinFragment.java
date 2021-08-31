@@ -4,20 +4,25 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,6 +35,8 @@ import com.example.sun_safe_app.R;
 import com.example.sun_safe_app.databinding.FragmentMySkinBinding;
 import com.example.sun_safe_app.databinding.FragmentUviBinding;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
+import com.example.sun_safe_app.utils.AppUtil;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -44,15 +51,25 @@ public class MySkinFragment extends Fragment {
         binding = FragmentMySkinBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.cardViewSkintype.setOnClickListener(
+        binding.attempt.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.navigation_quiz, null)
         );
+
+
 
 
         SharedPreferences sharedPref= requireActivity().
                 getSharedPreferences("Default", Context.MODE_PRIVATE);
         int skinType = sharedPref.getInt("skinType",0);
         setSkinType(skinType);
+
+
+//
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        int height = (int) navView.getMeasuredHeight();
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)binding.mainLayout.getLayoutParams();
+//        params.setMargins(0, 0, 0, height); //substitute parameters for left, top, right, bottom
+//        binding.mainLayout.setLayoutParams(params);
 
 
 
@@ -413,10 +430,46 @@ public class MySkinFragment extends Fragment {
 //
 //    }
     public void setSkinType(int skinType){
-        if (skinType != 0)
-            binding.infoText.setText("Skin type " + getValue(skinType));
+        if (skinType != 0) {
+//            binding.infoText.setText("Skin type " + getValue(skinType));
+            binding.skinTypeCard.setVisibility(View.VISIBLE);
+            binding.skinTypeExplainCard.setVisibility(View.VISIBLE);
+            binding.attemptText.setText("Re-attempt");
+            if (skinType == 1){
+                binding.skinTypeNumber.setText("I");
+                binding.skinTypeExplainText.setText("Extremely sensitive skin, always burns, never tans");
+
+            }
+            if (skinType == 2){
+                binding.skinTypeNumber.setText("II");
+                binding.skinTypeExplainText.setText("Very sensitive skin, burns easily, tans minimally");
+
+            }
+            if (skinType == 3){
+                binding.skinTypeNumber.setText("III");
+                binding.skinTypeExplainText.setText("Sensitive skin, sometimes burns, slowly tans to light brown");
+
+            }
+            if (skinType == 4){
+                binding.skinTypeNumber.setText("IV");
+                binding.skinTypeExplainText.setText("Mildly sensitive, burns minimally, always tans to moderate\n" +
+                        "brown");
+
+            }
+            if (skinType == 5){
+                binding.skinTypeNumber.setText("V");
+                binding.skinTypeExplainText.setText("Resistant skin, rarely burns, tans well");
+
+            }
+            if (skinType == 6){
+                binding.skinTypeNumber.setText("VI");
+                binding.skinTypeExplainText.setText("Very resistant skin, never burns, deeply pigmented");
+
+            }
+        }
         else{
-            binding.infoText.setText("Finish the quiz to know you skin type!");
+            binding.skinTypeCard.setVisibility(View.GONE);
+            binding.skinTypeExplainCard.setVisibility(View.GONE);
         }
 
     }

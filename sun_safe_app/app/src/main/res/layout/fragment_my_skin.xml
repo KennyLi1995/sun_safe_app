@@ -1,43 +1,348 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rsv="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+   android:background="@drawable/background_gradient"
     tools:context=".ui.mySkin.MySkinFragment">
 
 
 
 
-    <!-- A CardView that contains a TextView -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_skintype"
-        android:layout_width="380dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/informationCard"
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
         android:clickable="true"
+        app:cardCornerRadius="20dp"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#CCFFCF"
-        app:cardCornerRadius="13dp"
-        app:cardElevation="20dp"
-        app:contentPaddingBottom="@dimen/activity_vertical_margin"
-        app:contentPaddingLeft="20dp"
-        app:contentPaddingRight="@dimen/activity_horizontal_margin"
-        app:contentPaddingTop="20dp"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/white"
+
+        app:strokeWidth="1dp"
+        app:strokeColor="#E5E5E5"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
 
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="30sp"
+        android:layout_marginLeft="35sp"
+        android:layout_marginRight="35sp"
 
-        <TextView
-            android:id="@+id/info_text"
+        app:layout_constraintTop_toTopOf="parent"
+    >
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
-            android:textSize="25dp"
+            tools:context=".ui.mySkin.MySkinFragment">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/corss"
+
+        />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+<!--        &lt;!&ndash; A CardView that contains a TextView &ndash;&gt;-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card_view_skintype"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:clickable="true"-->
+<!--        android:foreground="?android:attr/selectableItemBackground"-->
+<!--        app:cardBackgroundColor="#CCFFCF"-->
+<!--        app:cardCornerRadius="13dp"-->
+<!--        app:cardElevation="20dp"-->
+<!--        app:contentPaddingBottom="@dimen/activity_vertical_margin"-->
+<!--        app:contentPaddingLeft="20dp"-->
+<!--        app:contentPaddingRight="@dimen/activity_horizontal_margin"-->
+<!--        app:contentPaddingTop="20dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="48dp"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/info_text"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="sans-serif"-->
+<!--                android:gravity="left"-->
+<!--                android:text="Finish the quiz to know you skin type!"-->
+<!--                android:textSize="25dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:typeface="normal" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/info_text_2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="sans-serif"-->
+<!--                android:gravity="left"-->
+<!--                android:text="Click here to start the quiz"-->
+<!--                android:textSize="20dp" />-->
+<!--        </LinearLayout>-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:id="@+id/imageView1"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/ic_sharp_play_arrow_24"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/informationCard"-->
+<!--        android:orientation="horizontal">-->
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:id="@+id/imageView2"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/ic_sharp_play_arrow_24"-->
+<!--            />-->
+<!--        <TextView-->
+<!--            android:id="@+id/info_text_3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="sans-serif"-->
+<!--            android:gravity="left"-->
+<!--            android:text="Click here to start the quiz"-->
+<!--            android:textSize="20dp" />-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/skinTypeLayout"
+            app:layout_constraintTop_toBottomOf="@id/informationCard"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="horizontal">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/skinTypeCard"
+        android:layout_width="match_parent"
+        android:layout_height="183sp"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:visibility="gone"
+
+
+        app:cardCornerRadius="20dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+
+
+
+
+
+        android:layout_marginTop="30sp"
+        android:layout_marginLeft="35sp"
+        android:layout_marginRight="10sp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/informationCard"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/skinTypeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:gravity="center"
+                        android:layout_marginTop="30dp"
+
+                        android:text="Skin type"
+                        android:textColor="#9FADB8"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/skinTypeNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+
+                        android:text="I"
+                        android:textColor="#6E7880"
+                        android:textSize="58sp" />
+
+
+
+                </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/skinTypeExplainCard"
+                android:layout_width="match_parent"
+                android:layout_height="183sp"
+                android:clickable="true"
+                android:visibility="gone"
+
+                android:layout_weight="1"
+
+                app:cardCornerRadius="20dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+
+
+
+
+                android:layout_marginTop="30sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="35sp">
+
+
+            <TextView
+                android:id="@+id/skinTypeExplainText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:text="Very sensitive skin, burns easily, tans minimally"
+                android:layout_margin="15dp"
+                android:textColor="#9FADB8"
+                android:textSize="18sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    <TextView
+        android:id="@+id/hintMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Take a quiz to help determine your skin type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/skinTypeLayout"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/attempt"
+        android:layout_width="148sp"
+        android:layout_height="48sp"
+        android:clickable="true"
+        app:cardCornerRadius="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/hintMessage"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="#2F8FD4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E5E5E5">
+
+        <TextView
+            android:id="@+id/attemptText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Attempt"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Finish the quiz to know you skin type!" />
-    </androidx.cardview.widget.CardView>
+            android:typeface="normal" />
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</LinearLayout>
+

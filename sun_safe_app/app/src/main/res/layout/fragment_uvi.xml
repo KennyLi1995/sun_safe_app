@@ -8,6 +8,18 @@
     tools:context=".ui.mySkin.MySkinFragment">
 
     <TextView
+        android:id="@+id/hiMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:text="Hi, new user!"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/addressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +27,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/addressIcon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/hiMessage" />
 
     <ImageView
             android:id="@+id/addressIcon"
@@ -24,7 +36,7 @@
             android:background="@drawable/location_mark"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hiMessage"
 
             />
 
@@ -94,7 +106,6 @@
         android:layout_width="196sp"
         android:layout_height="188sp"
         android:layout_gravity="left"
-        android:layout_marginRight="18sp"
         app:layout_constraintTop_toBottomOf="@id/addressText"
         app:layout_constraintRight_toRightOf="parent"
         app:cardCornerRadius="330dp"
@@ -180,6 +191,17 @@
 
                 >
 
+                <ImageView
+                    android:id="@+id/sun_safe"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/sun_safe"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="70dp"
+
+
+                    />
+
                 <TextView
                     android:id="@+id/info_text"
                     android:layout_width="match_parent"
@@ -206,6 +228,28 @@
         android:visibility="visible"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
+
+
+    <TextView
+        android:id="@+id/introduceMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Not sure what these numbers mean to you ?
+Take a skin assessment and get personalised recomendation"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:shadowColor="#40000000"
+        android:shadowRadius="1"
+        android:shadowDx="0"
+        android:shadowDy="6"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

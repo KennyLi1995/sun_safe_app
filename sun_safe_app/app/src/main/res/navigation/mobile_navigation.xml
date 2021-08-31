@@ -16,8 +16,6 @@
         android:name="com.example.sun_safe_app.ui.mySkin.MySkinFragment"
         android:label="My Skin"
         tools:layout="@layout/fragment_my_skin">
-
-
         <action
             android:id="@+id/action_navigation_my_skin_to_navigation_quiz2"
             app:destination="@id/navigation_quiz" />

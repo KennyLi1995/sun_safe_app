@@ -218,6 +218,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:clickable="true"
                 android:text="Light blue, light gray or light green"
                 android:textSize="14sp"
                 android:textColor="@color/black"

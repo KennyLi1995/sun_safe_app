@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected LocationManager locationManager;
     private String currentLocation;
     private String current_locality;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
 
 
     private String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS};
     private static final int OPEN_SET_REQUEST_CODE = 100;
-
-
 
 
     @Override
@@ -91,46 +91,53 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
+        actionbar.hide();
 
-        initPermissions();
+        if ( Build.VERSION.SDK_INT >= 23){
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED  ){
+                requestPermissions(new String[]{
+                                android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+                return ;
+            }
+        }
+
+        getLocation();
 
 
-        Intent intent=getIntent();
-        int bigMake=intent.getIntExtra("bigMake",0);
+
+        Intent intent = getIntent();
+        int bigMake = intent.getIntExtra("bigMake", 0);
         if (bigMake == 1) {
-            intent.putExtra("bigMake",0);
-            MySkinFragment aFragment=new MySkinFragment();
+            intent.putExtra("bigMake", 0);
+            MySkinFragment aFragment = new MySkinFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment,aFragment).commit();
-            getSupportActionBar().setTitle("My Skin");
+            transaction.replace(R.id.nav_host_fragment, aFragment).commit();
+//            getSupportActionBar().setTitle("My Skin");
 
 
         }
-
-
-
 
 
         int prev_nav_item = 0;
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, this);
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 0, this);
 
 
     }
@@ -152,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 String country = addresses.get(0).getCountryName();
                 String postalCode = addresses.get(0).getPostalCode();
                 String knownName = addresses.get(0).getFeatureName();
-                String trueAddress = locality + ", " + state + "，" +country;
+                String trueAddress = locality + ", " + state + "，" + country;
                 UviFragmentModel vm = new
                         ViewModelProvider(this).get(UviFragmentModel.class);
                 vm.setMessage(trueAddress);
@@ -160,8 +167,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         ViewModelProvider(this).get(UviFragmentLatLongModel.class);
                 float lat = (float) location.getLatitude();
                 float longitude = (float) location.getLongitude();
-                String laLong = lat + " " +longitude;
-                vmLatLong.setMessage(laLong);
+                String laLong = lat + " " + longitude;
+                if (!vmLatLong.getText().equals(laLong)) {
+                    vmLatLong.setMessage(laLong);
+                }
 
                 vm.setMessage(trueAddress);
                 if (subLocality != null) {
@@ -184,17 +193,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.d("Latitude","disable");
+        Log.d("Latitude", "disable");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.d("Latitude","enable");
+        Log.d("Latitude", "enable");
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude","status");
+        Log.d("Latitude", "status");
     }
 
     @Override
@@ -206,8 +215,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void selectBottomMenu(final int position) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
-            MenuItem item = menu.getItem(position);
-            item.setChecked(true);
+        MenuItem item = menu.getItem(position);
+        item.setChecked(true);
 
     }
 
@@ -221,66 +230,53 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
 
-    //调用此方法判断是否拥有权限
-    private void initPermissions() {
 
 
-        final int OPEN_SET_REQUEST_CODE = 100;
-        if (lacksPermission(permissions)) {//判断是否拥有权限
-            //请求权限，第二参数权限String数据，第三个参数是请求码便于在onRequestPermissionsResult 方法中根据code进行判断
-            ActivityCompat.requestPermissions(this, permissions, OPEN_SET_REQUEST_CODE);
-        } else {
-            //拥有权限执行操作
-        }
-    }
 
-    public boolean lacksPermission(String[] permissions) {
-        for (String permission : permissions) {
-            //判断是否缺少权限，true=缺少权限
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
-                return true;
+
+    //Get location
+    public void getLocation() {
+            Toast.makeText(this, "Get access to location...", Toast.LENGTH_LONG).show();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
             }
-        }
-        return false;
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 0, this);
+
+
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode){//响应Code
-            case OPEN_SET_REQUEST_CODE:
-                if (grantResults.length > 0) {
-                    for(int i = 0; i < grantResults.length; i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
-                            Toast.makeText(this,"Searching for your current location...",Toast.LENGTH_LONG).show();
-                            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                // TODO: Consider calling
-                                //    ActivityCompat#requestPermissions
-                                // here to request the missing permissions, and then overriding
-                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                //                                          int[] grantResults)
-                                // to handle the case where the user grants the permission. See the documentation
-                                // for ActivityCompat#requestPermissions for more details.
-                                return;
-                            }
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, this);
-                            return;
-                        }
-                    }
-                    //拥有权限执行操作
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
                 } else {
-                    Toast.makeText(this,"Don't have access to location!",Toast.LENGTH_LONG).show();
-
+                    // Permission Denied
+                    Toast.makeText( this,"Can't get the location!" , Toast.LENGTH_SHORT)
+                            .show();
                 }
                 break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+

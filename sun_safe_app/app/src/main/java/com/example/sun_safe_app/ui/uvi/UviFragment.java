@@ -1,7 +1,9 @@
 package com.example.sun_safe_app.ui.uvi;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import com.squareup.okhttp.*;
 
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -45,6 +48,7 @@ public class UviFragment extends Fragment {
     private RetrofitInterface retrofitInterface;
     private FragmentUviBinding binding;
 
+    @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        UviFragmentModel =
@@ -62,6 +66,21 @@ public class UviFragment extends Fragment {
         View view = binding.getRoot();
 
 
+
+
+        SharedPreferences sharedPref= getActivity().
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
+        int preTemp = sharedPref.getInt("preTemp",0);
+        int preUvi = sharedPref.getInt("preUvi",0);
+        String preWeather = sharedPref.getString("preWeather"," ");
+        int preWeatherCode = sharedPref.getInt("preWeatherCode",0);
+
+        binding.uvdataText.setText(preUvi + "");
+        binding.tempText.setText(preTemp + "");
+        binding.weatherText.setText(preWeather);
+        changeColor(preUvi);
+        binding.animationView.setAnimation(AppUtil.getWeatherAnimation(preWeatherCode));
+        binding.animationView.playAnimation();
 
 
 
@@ -185,7 +204,17 @@ public class UviFragment extends Fragment {
                     binding.weatherText.setText(weatherResponse.current.weather.get(0).main);
                     changeColor(uvi);
 
-                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
+                    SharedPreferences sharedPref= getActivity().
+                            getSharedPreferences("Default", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor spEditor = sharedPref.edit();
+                    spEditor.putInt("preTemp", temp);
+                    spEditor.putInt("preUvi", uvi);
+                    spEditor.putString("preWeather", weatherResponse.current.weather.get(0).main);
+                    spEditor.putInt("preWeatherCode", weatherResponse.current.weather.get(0).id);
+                    spEditor.apply();
+
+                   binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
+
                     binding.animationView.playAnimation();
 
 //                    binding.weatherText.setText(weatherResponse.current.weather.main);
@@ -250,6 +279,8 @@ public class UviFragment extends Fragment {
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 
     }
+
+
 
 
 
