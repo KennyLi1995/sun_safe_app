@@ -482,78 +482,13 @@ public class QuizFragment extends Fragment {
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               int totalPoints = 0;
+                for(Map.Entry<Integer, Integer> entry:  points.entrySet()){
+                    totalPoints += entry.getValue();
 
 
-                               int totalPoints = 0;
-                                for(Map.Entry<Integer, Integer> entry:  points.entrySet()){
-                                    totalPoints += entry.getValue();
-
-
-                                }
-                                int skinType = changeSkinType(totalPoints);
-
-//
-//                                final MaterialStyledDialog.Builder dialogHeader_7 = new MaterialStyledDialog.Builder(getActivity())
-//                                        .setStyle(Style.HEADER_WITH_TITLE)
-//                                        .withDialogAnimation(true)
-//                                        .setTitle("You're Skin Type I")
-//                                        .setDescription("Skin Photo Type I tans little or not at all, burns easily and severely, and then peels. \n" +
-//                                                "Individuals with Skin Photo Type I do not have the ability to create natural protection from ultraviolet exposure, and are particularly susceptible to burning and damage from UV radiation.")
-//                                        .setHeaderColor(R.color.dialog_1)
-//                                        .setNegativeText("Ok")
-//                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-//                                            @Override
-//                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//
-//                                                        SharedPreferences sharedPref= getActivity().
-//                                                                getSharedPreferences("Default", Context.MODE_PRIVATE);
-//                                                    SharedPreferences.Editor spEditor = sharedPref.edit();
-//                                                    spEditor.putInt("skinType", skinType);
-//                                                    spEditor.apply();
-//                                                    onDestroyView();
-//                                                    getActivity().onBackPressed();
-//
-//
-////                                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new MySkinFragment()).commit();
-////                                                Intent intent=new Intent();
-////                                                intent.setClass(getActivity(), MainActivity.class);
-////                                                intent.putExtra("bigMake",1);
-////                                                startActivity(intent);
-////                                                getActivity().finish();
-//
-//                                            }
-//                                        });
-//                                if (skinType == 2){
-//                                    dialogHeader_7.setTitle("You're Skin Type II")
-//                                    .setDescription("Skin Photo Type II usually burns easily and severely (painful burn), and tans minimally and lightly.Individuals with Skin Photo Type II are not recommended to use a tanning unit.");
-//
-//                                }
-//                                if (skinType == 3){
-//                                    dialogHeader_7.setTitle("You're Skin Type III")
-//                                            .setDescription("Skin Photo Type III burns moderately, and usually develops an average tan.");
-//
-//                                }
-//                                if (skinType == 4){
-//                                    dialogHeader_7.setTitle("You're Skin Type IV")
-//                                            .setDescription("Skin Type IV burns minimally, tans easily with each exposure and exhibits immediate pigment darkening.");
-//
-//                                }
-//                                if (skinType == 5){
-//                                    dialogHeader_7.setTitle("You're Skin Type V")
-//                                            .setDescription("Skin Type V rarely burns, tans easily and substantially, and always exhibits immediate pigment darkening.");
-//
-//                                }
-//                                if (skinType == 6){
-//                                    dialogHeader_7.setTitle("You're Skin Type VI")
-//                                            .setDescription("Skin Type VI, tans easily, never burns and exhibits immediate pigment darkening.");
-//
-//                                }
-//
-//                                dialogHeader_7.show();
-
-
-
-
+                }
+                int skinType = changeSkinType(totalPoints);
                 SkinTypeDialog dialog=new SkinTypeDialog(getContext());
                 dialog.setTitle("Result");
                 dialog.setMessage1("");
@@ -616,13 +551,8 @@ public class QuizFragment extends Fragment {
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.show();
 
-
-
-
-
-
-                            }
-                        });
+                    }
+                });
 
 
 

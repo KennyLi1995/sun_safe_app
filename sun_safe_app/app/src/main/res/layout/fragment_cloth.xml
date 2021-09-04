@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wholeLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_alignParentTop="true"
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <include
+            layout="@layout/app_bar_main"
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_back_white_arrow"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="casual"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:text="Clothing"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+
+        android:textStyle="bold" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@id/mainLayout"
+        android:layout_below="@+id/app_bar_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/instruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="18dp"
+        android:text="Click on the arrows to select the clothing that best represents what you are wearing."
+        android:textAlignment="center"
+        android:textColor="#3771C8"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/model"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    <ImageView
+            android:id="@+id/realModel"
+            android:layout_width="wrap_content"
+            android:layout_height="444dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/ic_male_model"
+            android:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/ic_male_trousers1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/model"
+            android:layout_marginTop="195dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/ic_male_trousers1"
+            />
+
+
+        <ImageView
+            android:id="@+id/ic_male_trousers2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:background="@drawable/ic_male_trousers2"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/model" />
+
+        <ImageView
+            android:id="@+id/ic_male_trousers3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="225dp"
+            android:background="@drawable/ic_male_trousers3"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/model" />
+
+        <ImageView
+            android:id="@+id/ic_male_trousers4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="225dp"
+            android:background="@drawable/ic_male_trousers4_78x46"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/model" />
+
+        <ImageView
+            android:id="@+id/ic_male_cloth1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="215dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/ic_male_cloth1"
+            />
+
+        <ImageView
+            android:id="@+id/ic_male_cloth2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="224dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:background="@drawable/ic_male_cloth2"
+            />
+
+
+        <ImageView
+            android:id="@+id/ic_male_cloth3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="235dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/male_cloth3_99x135"
+            />
+
+        <ImageView
+            android:id="@+id/ic_female_cloth1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="215dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/female_cloth1_141x161"
+            />
+        <ImageView
+            android:id="@+id/ic_female_cloth2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="215dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/ic_female_cloth2"
+            />
+        <ImageView
+            android:id="@+id/ic_female_cloth3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="250dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/ic_female_cloth3"
+            />
+        <ImageView
+            android:id="@+id/ic_female_cloth4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="207dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/female_cloth4_79x173"
+            />
+        <ImageView
+            android:id="@+id/ic_female_cloth5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/model"
+            android:layout_marginBottom="207dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/female_cloth5_81x167"
+            />
+
+
+        <ImageView
+            android:id="@+id/ic_female_trousers1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/model"
+            android:layout_marginTop="195dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/ic_female_dress1"
+            />
+
+
+        <ImageView
+            android:id="@+id/ic_female_trousers2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/ic_female_dress2"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/model" />
+
+        <ImageView
+            android:id="@+id/ic_female_trousers3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="205dp"
+            android:background="@drawable/ic_female_dress3"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/model" />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/shoe"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_marginTop="414dp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/model" />
+
+    <ImageView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/model"
+        android:layout_marginBottom="410dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
+
+
+
+
+        <ImageButton
+            android:id="@+id/prevHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:src="@drawable/ic_previous_checked"
+            android:padding="5dp"
+            app:layout_constraintLeft_toLeftOf="@id/instruction"
+            app:layout_constraintTop_toTopOf="@+id/model"
+            android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/preBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="110dp"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_previous_checked"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/instruction"
+        app:layout_constraintTop_toTopOf="@+id/model"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/preLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="270dp"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_previous_checked"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/instruction"
+        app:layout_constraintTop_toTopOf="@+id/model"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/preFeet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_previous_checked"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/instruction"
+        app:layout_constraintBottom_toBottomOf="@+id/model"
+        android:visibility="visible" />
+
+
+    <ImageButton
+        android:id="@+id/nextHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@android:color/white"
+        android:src="@drawable/ic_next_checked"
+        android:padding="5dp"
+        app:layout_constraintRight_toRightOf="@id/instruction"
+        app:layout_constraintTop_toTopOf="@+id/model"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/nextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="110dp"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_next_checked"
+        android:padding="5dp"
+        app:layout_constraintRight_toRightOf="@id/instruction"
+        app:layout_constraintTop_toTopOf="@+id/model"
+        android:visibility="visible" />
+
+
+    <ImageButton
+        android:id="@+id/nextLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="270dp"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_next_checked"
+        android:padding="5dp"
+        app:layout_constraintRight_toRightOf="@id/instruction"
+        app:layout_constraintTop_toTopOf="@+id/model"
+        android:visibility="visible" />
+
+
+    <ImageButton
+        android:id="@+id/nextFeet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@android:color/white"
+        android:src="@drawable/ic_next_checked"
+        android:padding="5dp"
+        app:layout_constraintRight_toRightOf="@id/instruction"
+        app:layout_constraintBottom_toBottomOf="@+id/model"
+        android:visibility="visible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/shoe"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/Next"
+        android:layout_width="148sp"
+        android:layout_height="48sp"
+        android:clickable="true"
+        app:cardCornerRadius="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="#2F8FD4"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E5E5E5">
+
+    <TextView
+        android:id="@+id/attemptText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="next"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</RelativeLayout>
+
+
+
+

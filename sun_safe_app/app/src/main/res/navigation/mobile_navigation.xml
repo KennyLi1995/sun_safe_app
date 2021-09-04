@@ -31,9 +31,17 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.sun_safe_app.ui.notifications.NotificationsFragment"
+        android:name="com.example.sun_safe_app.ui.sunscreen.SunscreenFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_sunscreen" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_chooseClothesFragment"
+            app:destination="@id/chooseClothesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseClothesFragment"
+        android:name="com.example.sun_safe_app.ui.sunscreen.ChooseClothesFragment"
+        android:label="ChooseClothesFragment" />
 </navigation>
 
 

@@ -150,7 +150,7 @@ public class AppUtil {
     } else if (weatherCode / 100 == 6) {
       return R.raw.snow_weather;
     } else if (weatherCode / 100 == 7) {
-      return R.raw.unknown;
+      return R.raw.cloudy_weather;
     } else if (weatherCode == 800) {
       return R.raw.clear_day;
     } else if (weatherCode == 801) {

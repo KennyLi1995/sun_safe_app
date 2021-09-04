@@ -1,23 +1,34 @@
 package com.example.sun_safe_app;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.sun_safe_app.databinding.ActivityMainBinding;
@@ -28,11 +39,32 @@ import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragmentLatLongModel;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
+import com.example.sun_safe_app.utils.GpsReceiver;
+import com.example.sun_safe_app.utils.LocationCallBack;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -41,9 +73,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private String currentLocation;
     private String current_locality;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    boolean gps_enabled;
+    boolean network_enabled;
 
 
 
@@ -78,9 +116,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_notifications)
+                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_notifications, R.id.chooseClothesFragment)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        //origin
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+//         try
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment)
+                fragmentManager.findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
+
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 //
@@ -88,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //Sets up a Toolbar for use with a NavController.
 //        NavigationUI.setupWithNavController(binding.appBar.toolbar, navController,
 //                appBarConfiguration);
+
+
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
@@ -139,6 +188,40 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        }
 //        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 0, this);
 
+//        registerReceiver(new GpsReceiver(new LocationCallBack() {
+//            @Override
+//            public void onLocationTriggered() {
+//                //Location state changed
+//
+//            }
+//        }), new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        try {
+             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        }catch (Exception ex){}
+        try{
+             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }catch (Exception ex){}
+        if(!gps_enabled && !network_enabled){
+//            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+//            dialog.setMessage("You have turned off you location service! To use this app, you need to turn on this service.");
+//            dialog.setPositiveButton("Open Location", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+////                    setLocationEnabledForUser(getApplicationContext(),true);
+//                    int a = 0;
+//                }
+//            });
+//            dialog.setNegativeButton("Ignore", new DialogInterface.OnClickListener() {
+//
+//                @Override
+//                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+//                    // TODO Auto-generated method stub
+//
+//                }
+//            });
+//            dialog.show();
+        }
 
     }
 
@@ -220,14 +303,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 
-    private void replaceFragment(Fragment nextFragment) {
+    public void replaceFragment(Fragment nextFragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment_container,
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.replace(R.id.nav_host_fragment,
                 nextFragment);
         fragmentTransaction.commit();
     }
+
+    public void onClickItem(int position){
+        BottomNavigationView bottomNavigationView;
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.nav_view);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
+
+
+    }
+
+
+
 
 
 
@@ -253,6 +348,42 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 
+
+
+
+
+    private Uri ImageUri;
+    public static final int TAKE_PHOTO = 101;
+    public static final int TAKE_CAMARA = 100;
+    //跳转相册
+    public void toPicture() {
+        Intent intent = new Intent(Intent.ACTION_PICK);  //跳转到 ACTION_IMAGE_CAPTURE
+        intent.setType("image/*");
+        startActivityForResult(intent, TAKE_CAMARA);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        }catch (Exception ex){}
+        try{
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }catch (Exception ex){}
+        if(!gps_enabled && !network_enabled){
+
+            displayLocationSettingsRequest(getApplicationContext());
+
+
+        }
+
+
+    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -269,6 +400,97 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+
+
+
+    private SettingsClient mSettingsClient;
+    private LocationSettingsRequest mLocationSettingsRequest;
+    private static final int REQUEST_CHECK_SETTINGS = 214;
+    private static final int REQUEST_ENABLE_GPS = 516;
+
+    private void displayLocationSettingsRequest(Context context) {
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY));
+        builder.setAlwaysShow(true);
+        mLocationSettingsRequest = builder.build();
+
+        mSettingsClient = LocationServices.getSettingsClient(MainActivity.this);
+
+        mSettingsClient
+                .checkLocationSettings(mLocationSettingsRequest)
+                .addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
+                    @Override
+                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                        //Success Perform Task Here
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        int statusCode = ((ApiException) e).getStatusCode();
+                        switch (statusCode) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                try {
+                                    ResolvableApiException rae = (ResolvableApiException) e;
+                                    rae.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                                } catch (IntentSender.SendIntentException sie) {
+                                    Log.e("GPS","Unable to execute request.");
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                Log.e("GPS","Location settings are inadequate, and cannot be fixed here. Fix in Settings.");
+                        }
+                    }
+                })
+                .addOnCanceledListener(new OnCanceledListener() {
+                    @Override
+                    public void onCanceled() {
+                        Log.e("GPS","checkLocationSettings -> onCanceled");
+                    }
+                });
+
+
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CHECK_SETTINGS) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    //Success Perform Task Here
+                    break;
+                case Activity.RESULT_CANCELED:
+                    Log.e("GPS","User denied to access location");
+                    openGpsEnableSetting();
+                    break;
+            }
+        } else if (requestCode == REQUEST_ENABLE_GPS) {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (!isGpsEnabled) {
+                openGpsEnableSetting();
+            } else {
+            }
+        }
+    }
+
+    private void openGpsEnableSetting() {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivityForResult(intent, REQUEST_ENABLE_GPS);
+    }
+
+
+
+
+
+
 
 }
 

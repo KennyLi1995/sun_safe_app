@@ -1,13 +1,24 @@
 package com.example.sun_safe_app.ui.mySkin;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +26,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +37,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,14 +54,34 @@ import com.example.sun_safe_app.databinding.FragmentMySkinBinding;
 import com.example.sun_safe_app.databinding.FragmentUviBinding;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
 import com.example.sun_safe_app.utils.AppUtil;
+import com.example.sun_safe_app.utils.MyViewModel;
+import com.example.sun_safe_app.utils.ProfileFragmentDialog;
+import com.example.sun_safe_app.utils.ProfileModifyDialog;
+import com.example.sun_safe_app.utils.ShareBitmapUtils;
+import com.example.sun_safe_app.utils.SkinTypeDialog;
+import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class MySkinFragment extends Fragment {
 
     private FragmentMySkinBinding binding;
     int currentCount = 0;
+
+
+    private Button cameraBt;
+    private Button photoBt;
+    private ImageView camereIv;
+    private ImageView photoIv;
+    private String TAG = "tag";
+    //需要的权限数组 读/写/相机
+    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA};
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,6 +96,7 @@ public class MySkinFragment extends Fragment {
 
 
 
+
         SharedPreferences sharedPref= requireActivity().
                 getSharedPreferences("Default", Context.MODE_PRIVATE);
         int skinType = sharedPref.getInt("skinType",0);
@@ -65,17 +104,92 @@ public class MySkinFragment extends Fragment {
 
 
 //
-        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
-        int height = (int) navView.getMeasuredHeight();
-//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)binding.mainLayout.getLayoutParams();
-//        params.setMargins(0, 0, 0, height); //substitute parameters for left, top, right, bottom
-//        binding.mainLayout.setLayoutParams(params);
+//        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+//        int height = (int) navView.getMeasuredHeight();
+//        LinearLayout layout = view.findViewById(R.id.mainLayout);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//        lp.setMargins(0, 0, 0, height);
+//        layout.setLayoutParams(lp);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
+
+        binding.informationCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                ProfileFragmentDialog myDialog = new ProfileFragmentDialog();
+                myDialog.show(getActivity().getSupportFragmentManager(),"myDialog");
+
+
+
+
+
+
+
+            }
+        });
+
+        MySkinViewModel vm =  new ViewModelProvider(getActivity()).get(MySkinViewModel.class);
+        vm.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                updateUI();
+            }
+        });
+
+        binding.imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.informationCard.callOnClick();
+            }
+        });
+
+
+
+
+
 
 
 
 
         return view;
     }
+
+
+    private Uri ImageUri;
+    public static final int TAKE_PHOTO = 101;
+    public static final int TAKE_CAMARA = 100;
+
+//    private void initView() {
+//        cameraBt = binding.cameraBt;
+//        photoBt = binding.photoBt;
+//        camereIv = binding.camereIv;
+//        photoIv = binding.photoIv;
+//
+//        cameraBt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //检查是否已经获得相机的权限
+//                if (verifyPermissions(getActivity(), PERMISSIONS_STORAGE[2]) == 0) {
+//                    Log.i(TAG, "提示是否要授权");
+//                    ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 3);
+//                } else {
+//                    //已经有权限
+//                    toCamera();  //打开相机
+//                }
+//            }
+//        });
+//        photoBt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toPicture();
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroyView() {
@@ -86,349 +200,72 @@ public class MySkinFragment extends Fragment {
 
 
 
+
+
+
+
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).selectBottomMenu(1); //change value depending on your bottom menu position
+
+        ((MainActivity) getActivity()).selectBottomMenu(2); //change value depending on your bottom menu position
+        updateUI();
     }
 
-//    //单选对话框
-//    public void click1(View view) {
+    public void updateUI(){
+        SharedPreferences sharedPref= getActivity().
+                getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        if(sharedPref.getBoolean("ifInput",false)){
+            binding.cross.setVisibility(View.GONE);
+
+
+            binding.nameText.setText(sharedPref.getString("name",""));
+            binding.weightText.setText(sharedPref.getInt("weight", 0) + " KG");
+            binding.heightText.setText(sharedPref.getInt("height", 0) + " CM");
+            binding.genderText.setText(sharedPref.getString("gender","Male"));
+
+            Bitmap bitmap = ShareBitmapUtils.getBitmap(getActivity(), "photo",null);
+            if(bitmap != null){
+                RoundedBitmapDrawable img = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                img.setCircular(true);
+
+                binding.imageView1.setBackground(img);
+            }
+
+
+
+
+            binding.nameText.setVisibility(View.VISIBLE);
+            binding.gender.setVisibility(View.VISIBLE);
+            binding.genderText.setVisibility(View.VISIBLE);
+            binding.Height.setVisibility(View.VISIBLE);
+            binding.heightText.setVisibility(View.VISIBLE);
+            binding.Weight.setVisibility(View.VISIBLE);
+            binding.weightText.setVisibility(View.VISIBLE);
+            binding.imageView1.setVisibility(View.VISIBLE);
+            binding.changeAagin.setVisibility(View.VISIBLE);
+
+//            binding.nameEdit.setText(sharedPref.getString("name",""));
+//            binding.weightEdit.setText(sharedPref.getInt("weight",0) + "");
+//            binding.heightEdit.setText(sharedPref.getInt("height",0) + "");
 //
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q1: Your eye color is ")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Light blue, light gray or light green",
-//                                "Blue, gray or green",
-//                                "Hazel or light brown",
-//                                "Dark brown",
-//                                "Brownish black"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click2(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//
-//    //单选对话框
-//    public void click2(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q2: Your natural hair color is ")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Red or light blonde",
-//                                "Blonde",
-//                                "Dark blonde or light brown",
-//                                "Dark brown",
-//                                "Black"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click3(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//
-//    //单选对话框
-//    public void click3(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q3: Your natural skin color (before sun exposure) is")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Ivory white",
-//                                "Fair or pale",
-//                                "Fair to beige, with golden undertone",
-//                                "Olive or light brown",
-//                                "Dark brown or black"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click4(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//
-//    //单选对话框
-//    public void click4(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q4: How many freckles are on unexposed areas of your skin?")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Many",
-//                                "Several",
-//                                "A few",
-//                                "Very few",
-//                                "None"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click5(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//    //单选对话框
-//    public void click5(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q5: How does your skin respond to the sun?")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Always burns, blisters and peels",
-//                                "Often burns, blisters and peels",
-//                                "Burns moderately",
-//                                "Burns rarely, if at all",
-//                                "Never burns"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click6(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//    //单选对话框
-//    public void click6(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q6: Does your skin tan?")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Never — I always burn",
-//                                "Seldom",
-//                                "Sometimes",
-//                                "Often",
-//                                "Always"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click7(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//    //单选对话框
-//    public void click7(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q7: How deeply do you tan?")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Not at all or very little",
-//                                "Lightly",
-//                                "Moderately",
-//                                "Deeply",
-//                                "My skin is naturally dark"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        click8(view);
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//    //单选对话框
-//    public void click8(View view) {
-//
-//        AlertDialog dialog;
-//        dialog = new AlertDialog.Builder(getContext())
-//                .setTitle("Q8: How sensitive is your face to the sun?")  //设置标题
-//                .setIcon(R.mipmap.ic_launcher) //设置图标
-//                .setSingleChoiceItems(new String[]{"Very sensitive",
-//                                "Sensitive",
-//                                "Normal",
-//                                "Resistant",
-//                                "Very resistant/Never had a problem"}, 0,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setPositiveButton("Next Question", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ListView lw = ((AlertDialog)dialog).getListView();
-//                        currentCount += lw.getCheckedItemPosition();
-//                        changeSkinType();
-//                    }
-//                })   //添加“确定”按钮
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        currentCount = 0;
-//                    }
-//                })   //添加“取消”按钮
-//                .create();  //创建对话框
-//
-//        dialog.show();  //显示对话框
-//
-//    }
-//
-//    public void changeSkinType(){
-//        int skinType = 0;
-//        if (currentCount <= 6){
-//            skinType = 1;
-//        }
-//        else if (currentCount <= 13){
-//            skinType = 2;
-//        }
-//        else if (currentCount <= 20){
-//            skinType = 3;
-//        }
-//        else if (currentCount <= 27){
-//            skinType = 4;
-//        }
-//        else if (currentCount <= 34){
-//            skinType = 5;
-//        }
-//        else{
-//            skinType = 6;
-//        }
-//
-//        // store it in SharedPrefernece
-//        SharedPreferences sharedPref= requireActivity().
-//                getSharedPreferences("Default", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor spEditor = sharedPref.edit();
-//        spEditor.putInt("skinType", skinType);
-//        spEditor.apply();
-//        setSkinType(skinType);
-//
-//    }
+//            if (sharedPref.getString("gender","Male").equals("Male")){
+//                binding.genderSpinner.setSelection(0);
+//            }
+//            else{
+//                binding.genderSpinner.setSelection(1);
+//            }
+
+        }
+    }
+
+
+
+
+
+
+
+
     public void setSkinType(int skinType){
         if (skinType != 0) {
 //            binding.infoText.setText("Skin type " + getValue(skinType));

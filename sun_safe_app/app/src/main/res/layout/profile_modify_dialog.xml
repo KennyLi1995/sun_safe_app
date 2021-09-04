@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_rounded_bg"
+    android:minWidth="260dp"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingTop="24dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:context=".ui.mySkin.MySkinFragment">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/ic_photo" />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:text="Name"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toRightOf="@id/imageView1"
+             app:layout_constraintTop_toTopOf="parent"
+      />
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="133sp"
+            android:layout_height="48sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edittext_background"
+            android:hint="Your name"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/nameText"
+            app:layout_constraintLeft_toRightOf="@id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/nameText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_width="133sp"
+            android:layout_height="48sp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_spinner_background"
+            android:entries="@array/gender"
+            app:layout_constraintLeft_toLeftOf="@+id/nameEdit"
+            app:layout_constraintTop_toBottomOf="@+id/nameEdit"></Spinner>
+
+        <EditText
+            android:id="@+id/heightEdit"
+            android:layout_width="95sp"
+            android:layout_height="48sp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_edittext_background"
+            android:hint="Your height"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/genderSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
+
+
+        <EditText
+            android:id="@+id/weightEdit"
+            android:layout_width="95sp"
+            android:layout_height="48sp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_edittext_background"
+            android:hint="Your weight"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/heightEdit"
+            app:layout_constraintTop_toBottomOf="@+id/heightEdit" />
+
+        <TextView
+            android:id="@+id/cmText"
+            android:layout_width="wrap_content"
+            android:text="CM"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/heightEdit"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/heightEdit"
+            app:layout_constraintBottom_toBottomOf="@+id/heightEdit"
+            />
+
+        <TextView
+            android:id="@+id/kgText"
+            android:layout_width="wrap_content"
+            android:text="KG"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/weightEdit"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/weightEdit"
+            app:layout_constraintBottom_toBottomOf="@+id/weightEdit"
+            />
+
+        <TextView
+            android:id="@+id/genderText"
+            android:layout_width="wrap_content"
+            android:text="Gender"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/nameText"
+            app:layout_constraintTop_toTopOf="@+id/genderSpinner"
+            app:layout_constraintBottom_toBottomOf="@+id/genderSpinner"
+            />
+
+        <TextView
+            android:id="@+id/heightText"
+            android:layout_width="wrap_content"
+            android:text="Height"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/nameText"
+            app:layout_constraintTop_toTopOf="@+id/heightEdit"
+            app:layout_constraintBottom_toBottomOf="@+id/heightEdit"
+            />
+
+
+        <TextView
+            android:id="@+id/weightText"
+            android:layout_width="wrap_content"
+            android:text="Weight"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/nameText"
+            app:layout_constraintTop_toTopOf="@+id/weightEdit"
+            app:layout_constraintBottom_toBottomOf="@+id/weightEdit"
+            />
+
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="match_parent"
+            android:text=""
+            android:textColor="#F43636"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/weightEdit"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView1"
+            />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/negativeText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="#0FA8CE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+
+            />
+
+
+        <TextView
+            android:id="@+id/positiveText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="OK"
+            android:textColor="#0FA8CE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+
+            />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -35,6 +35,7 @@ import com.squareup.okhttp.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -182,12 +183,21 @@ public class UviFragment extends Fragment {
                 retrofitInterface.weatherSearch(lat,
                         longi,"metric","",
                         "06c51bfd1f1dd5479b28cd21ff8534dd");
+        //06c51bfd1f1dd5479b28cd21ff8534dd
         //makes an async request & invokes callback methods when the response returns
         callAsync.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call,
                                    Response<WeatherResponse> response) {
-                Log.d("Weather Response ",response.body().toString());
+                try {
+                    Log.d("Weather Response ", response.body().toString());
+                }
+                catch (Exception ex){
+                    if(isAdded()) {
+
+                        Toast.makeText(requireActivity(), "Can't get the weather information!", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 if (response.isSuccessful()) {
                     // if success call, change the weather message on home screen
                     WeatherResponse weatherResponse = response.body();
@@ -222,11 +232,19 @@ public class UviFragment extends Fragment {
                 }
                 else {
                     Log.e("Error ","Response failed");
+                    if(isAdded()) {
+
+                        Toast.makeText(requireActivity(), "Can't get the weather information!", Toast.LENGTH_LONG).show();
+                    }
+
                 }
             }
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT);
+                if(isAdded()) {
+
+                    Toast.makeText(requireActivity(), t.getMessage(), Toast.LENGTH_SHORT);
+                }
 
             }
 
@@ -270,6 +288,29 @@ public class UviFragment extends Fragment {
         super.onResume();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
         ((MainActivity) getActivity()).selectBottomMenu(0); //change value depending on your bottom menu position
+        SharedPreferences sharedPref= getActivity().
+                getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        final Calendar mCalendar= Calendar.getInstance();
+        long time=System.currentTimeMillis();
+        mCalendar.setTimeInMillis(time);
+        int mHour=mCalendar.get(Calendar.HOUR_OF_DAY);
+        if (mHour >= 6 && mHour < 12){
+            binding.hiMessage.setText("Good morning, " + sharedPref.getString("name", "new user"));
+
+        }
+        else if(mHour >= 12 && mHour < 18){
+            binding.hiMessage.setText("Good afternoon, " + sharedPref.getString("name", "new user"));
+
+        }
+        else if(mHour >= 18 && mHour < 21){
+            binding.hiMessage.setText("Good evening, " + sharedPref.getString("name", "new user"));
+
+        }
+        else if(mHour >= 21 || mHour < 6){
+            binding.hiMessage.setText("Good night, " + sharedPref.getString("name", "new user"));
+
+        }
+
     }
 
     @Override

@@ -10,8 +10,13 @@ public class MySkinViewModel extends ViewModel {
 
     public MySkinViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("");
     }
+
+    public void setMessage(String message) {
+        mText.setValue(message);
+    }
+
 
     public LiveData<String> getText() {
         return mText;

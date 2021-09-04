@@ -1,32 +1,21 @@
 package com.example.sun_safe_app.utils;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Display;
-
-import com.example.sun_safe_app.MainActivity;
-import com.example.sun_safe_app.R;
-import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
-
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import com.example.sun_safe_app.R;
 
 /**
  * Created by Sunny on 2020/4/21.
  */
-public class SkinTypeDialog extends android.app.Dialog implements View.OnClickListener{
+public class CommonDialog extends android.app.Dialog implements View.OnClickListener{
 
     private TextView textView1,textView2,textView3,textView4,textView5;
     private ImageView imageView1;
@@ -35,11 +24,11 @@ public class SkinTypeDialog extends android.app.Dialog implements View.OnClickLi
     private OnConfirmListener confirmListener;
 
 
-    public SkinTypeDialog(Context context) {
+    public CommonDialog(Context context) {
         super(context);
     }
 
-    public SkinTypeDialog(Context context, int themeResId) {
+    public CommonDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
@@ -73,7 +62,7 @@ public class SkinTypeDialog extends android.app.Dialog implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.skin_tpye_dialog);
+        setContentView(R.layout.common_dialog);
         //设置宽度，固定代码
         WindowManager m=getWindow().getWindowManager();
         Display d=m.getDefaultDisplay();
@@ -84,56 +73,22 @@ public class SkinTypeDialog extends android.app.Dialog implements View.OnClickLi
         getWindow().setAttributes(p);
 
         textView1= (TextView) findViewById(R.id.title);
-        textView2= (TextView) findViewById(R.id.message1);
-        textView3= (TextView) findViewById(R.id.negativeText);
         textView4= (TextView) findViewById(R.id.positiveText);
-        textView5= (TextView) findViewById(R.id.message2);
-        imageView1  = (ImageView) findViewById(R.id.imageView1);
+        textView5= (TextView) findViewById(R.id.mainMessage);
         if(!TextUtils.isEmpty(title)){//不为空
             textView1.setText(title);
         }
-        if(!TextUtils.isEmpty(message1)){//不为空
-            textView2.setText(message1);
-            textView2.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
-            textView2.getPaint().setAntiAlias(true);//抗锯齿
-        }
+
         if(!TextUtils.isEmpty(message2)){//不为空
             textView5.setText(message2);
         }
 
-        if(!TextUtils.isEmpty(cancel)){//不为空
-            textView3.setText(cancel);
-        }
+
         if(!TextUtils.isEmpty(confirm)){//不为空
             textView4.setText(confirm);
         }
 
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("1"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_one));
-        }
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("2"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_two));
-        }
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("3"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_three));
-        }
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("4"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_four));
-        }
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("5"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_five));
-        }
-        if(!TextUtils.isEmpty(imageView1String)){//不为空
-            if (imageView1String.equals("6"))
-                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin_type_six));
-        }
 
-        textView3.setOnClickListener(this);
         textView4.setOnClickListener(this);
 
 
@@ -160,10 +115,10 @@ public class SkinTypeDialog extends android.app.Dialog implements View.OnClickLi
 
 
     public interface OnCancelListener{
-        void onCancel(SkinTypeDialog dialog);
+        void onCancel(CommonDialog dialog);
     }
 
     public interface OnConfirmListener{
-        void onConfirm(SkinTypeDialog dialog);
+        void onConfirm(CommonDialog dialog);
     }
 }
