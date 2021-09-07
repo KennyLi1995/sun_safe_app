@@ -30,7 +30,7 @@
 
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_sunscreen"
         android:name="com.example.sun_safe_app.ui.sunscreen.SunscreenFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_sunscreen" >

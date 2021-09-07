@@ -21,9 +21,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.sun_safe_app.MainActivity;
 import com.example.sun_safe_app.R;
 import com.example.sun_safe_app.databinding.FragmentClothBinding;
 import com.example.sun_safe_app.databinding.FragmentMySkinBinding;
+import com.example.sun_safe_app.utils.CommonDialog;
+import com.example.sun_safe_app.utils.SunScreenResultDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -87,10 +90,20 @@ public class ChooseClothesFragment extends Fragment {
         hats.add(null);
         hats.add(getResources().getDrawable(R.drawable.ic_hat));
 
+        ArrayList<Double> valHead = new ArrayList<>();
+        valHead.add(0.0);
+        valHead.add(0.036);
+
         ArrayList<Drawable> shoes = new ArrayList<>();
         shoes.add(null);
         shoes.add(getResources().getDrawable(R.drawable.shoe1_92x76));
         shoes.add(getResources().getDrawable(R.drawable.shoe2_84x78));
+
+
+        ArrayList<Double> valShoe = new ArrayList<>();
+        valShoe.add(0.0);
+        valShoe.add(0.0);
+        valShoe.add(0.035);
 
         binding.prevHead.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,12 +162,28 @@ public class ChooseClothesFragment extends Fragment {
         maleBody.add(getResources().getDrawable(R.drawable.ic_male_cloth2));
         maleBody.add(getResources().getDrawable(R.drawable.male_cloth3_99x135));
 
+
+        ArrayList<Double> valMShirt = new ArrayList<>();
+        valMShirt.add(0.0);
+        valMShirt.add(0.404);
+        valMShirt.add(0.35);
+        valMShirt.add(0.266);
+
+
+
         ArrayList<Drawable> maleLeg = new ArrayList<>();
         maleLeg.add(null);
         maleLeg.add(getResources().getDrawable(R.drawable.ic_male_trousers1));
         maleLeg.add(getResources().getDrawable(R.drawable.ic_male_trousers2));
         maleLeg.add(getResources().getDrawable(R.drawable.ic_male_trousers3));
         maleLeg.add(getResources().getDrawable(R.drawable.ic_male_trousers4_78x46));
+
+        ArrayList<Double> valMPant = new ArrayList<>();
+        valMPant.add(0.0);
+        valMPant.add(0.437);
+        valMPant.add(0.292);
+        valMPant.add(0.213);
+        valMPant.add(0.104);
 
         ArrayList<Drawable> femaleBody = new ArrayList<>();
         femaleBody.add(null);
@@ -164,6 +193,15 @@ public class ChooseClothesFragment extends Fragment {
         femaleBody.add(getResources().getDrawable(R.drawable.female_cloth4_79x173));
         femaleBody.add(getResources().getDrawable(R.drawable.female_cloth5_81x167));
 
+        ArrayList<Double> valFShirt = new ArrayList<>();
+        valFShirt.add(0.0);
+        valFShirt.add(0.404);
+        valFShirt.add(0.35);
+        valFShirt.add(0.266);
+        valFShirt.add(0.4);
+        valFShirt.add(0.134);
+
+
 
         ArrayList<Drawable> femaleLeg = new ArrayList<>();
         femaleLeg.add(null);
@@ -171,10 +209,11 @@ public class ChooseClothesFragment extends Fragment {
         femaleLeg.add(getResources().getDrawable(R.drawable.ic_female_dress2));
         femaleLeg.add(getResources().getDrawable(R.drawable.ic_female_dress3));
 
-
-
-
-
+        ArrayList<Double> valFPant = new ArrayList<>();
+        valFPant.add(0.0);
+        valFPant.add(0.437);
+        valFPant.add(0.292);
+        valFPant.add(0.213);
 
         if (sharedPref.getString("gender","Male").equals("Male")) {
             binding.realModel.setBackground(getResources().getDrawable(R.drawable.ic_male_model));
@@ -278,6 +317,67 @@ public class ChooseClothesFragment extends Fragment {
             });
 
         }
+
+        binding.Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int strHeight = sharedPref.getInt("height", 0);
+                int strWeight = sharedPref.getInt("weight", 0);
+
+                double strBSA = 0.007184  * Math.pow(strHeight,0.725) * Math.pow(strWeight,0.425) * 10000;
+                double valHeadNum = valHead.get(headCount);
+                double valShoeNum = valShoe.get(feetCount);
+                double valShirtNum;
+                double valPantNum;
+                if (sharedPref.getString("gender","Male").equals("Male")){
+                    valShirtNum = valMShirt.get(maleBodyCount);
+                    valPantNum = valMPant.get(maleLegCount);
+                }
+                else{
+                    valShirtNum = valFShirt.get(femaleBodyCount);
+                    valPantNum = valFPant.get(femaleLegCount);
+                }
+
+                double strBodyCovered = valHeadNum + valShoeNum + valShirtNum + valPantNum;
+                double strAmount = Math.round((strBSA * (1 - strBodyCovered)) * 0.002);
+                double strTeaspoon = (strAmount/5)-(strAmount-(strAmount%5))/5;
+                if(strTeaspoon==0) {
+                    strTeaspoon = strAmount/5;
+                }
+                else if(strTeaspoon>0.5) {
+                    strTeaspoon = ((strAmount-(strAmount%5))/5) + 1;
+                }
+                else {
+                    strTeaspoon = ((strAmount-(strAmount%5))/5) + 0.5;
+                }
+
+
+                SunScreenResultDialog dialog = new SunScreenResultDialog(getContext());
+                dialog.setMessage2((int) strTeaspoon + " teaspoons (" + (int) strAmount + " ml)");
+                int spf = 15;
+                SharedPreferences sharedPref2= getActivity().
+                        getSharedPreferences("Default", Context.MODE_PRIVATE);
+                int skinType = sharedPref2.getInt("skinType",0);
+                if (skinType == 1 || skinType == 2 || skinType == 0)
+                    spf = 50;
+                else if (skinType == 3 || skinType == 4)
+                    spf = 30;
+                else if (skinType == 5 || skinType == 6)
+                    spf = 15;
+                dialog.setImageView1(spf);
+                dialog.setConfirm("OK", new SunScreenResultDialog.OnConfirmListener() {
+                    @Override
+                    public void onConfirm(SunScreenResultDialog dialog) {
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.onClickItem(1);
+                    }
+                });
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+
+
+            }
+        });
 
 
 

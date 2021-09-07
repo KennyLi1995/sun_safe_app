@@ -38,7 +38,9 @@ public class SunscreenFragment extends Fragment {
 
         SharedPreferences sharedPref= getActivity().
                 getSharedPreferences("userInformation", Context.MODE_PRIVATE);
-        if (!sharedPref.getBoolean("ifInput",false)) {
+        SharedPreferences sharedPref2= getActivity().
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
+        if (!sharedPref.getBoolean("ifInput",false) && sharedPref2.getInt("skinType",0) == 0) {
 
 
             binding.walkingActivity.setOnClickListener(new View.OnClickListener() {

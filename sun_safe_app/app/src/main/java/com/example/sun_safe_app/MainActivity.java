@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_notifications, R.id.chooseClothesFragment)
+                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_sunscreen, R.id.chooseClothesFragment)
                 .build();
 
         //origin
@@ -316,7 +316,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onClickItem(int position){
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.nav_view);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
+        if (position == 2)
+            bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
+        if (position == 1)
+            bottomNavigationView.setSelectedItemId(R.id.navigation_sunscreen);
+
 
 
     }

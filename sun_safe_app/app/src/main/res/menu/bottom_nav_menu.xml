@@ -9,7 +9,7 @@
 
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_sunscreen"
         android:icon="@drawable/ic_sunscreen_black"
         android:title="Sunscreen" />
 
