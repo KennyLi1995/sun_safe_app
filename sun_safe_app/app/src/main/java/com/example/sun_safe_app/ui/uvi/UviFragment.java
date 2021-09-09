@@ -283,7 +283,7 @@ public class UviFragment extends Fragment {
 
     public void updateAdvice(){
         SharedPreferences sharedPref= getActivity().
-                getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
         float preUvi = sharedPref.getFloat("preUvi",0);
 
         SharedPreferences sharedPref2= getActivity().
