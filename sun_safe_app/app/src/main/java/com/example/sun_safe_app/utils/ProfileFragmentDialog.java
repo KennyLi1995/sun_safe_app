@@ -126,19 +126,19 @@ public class ProfileFragmentDialog extends DialogFragment {
                 dismiss();
             }
         });
-        binding.genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-
-                String[] options = getResources().getStringArray(R.array.gender);
-                gender = options[pos];
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
-            }
-        });
+//        binding.genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int pos, long id) {
+//
+//                String[] options = getResources().getStringArray(R.array.gender);
+//                gender = options[pos];
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // Another interface callback
+//            }
+//        });
         binding.positiveText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +187,7 @@ public class ProfileFragmentDialog extends DialogFragment {
                 R.layout.spinner_item_vict, curs);
         //此处修改的部分为 点击后弹出的选择框，同上可引用自己写的布局文件，也可以使用默认布局，此处使用的是默认布局
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.genderSpinner.setAdapter(adapter);
+//        binding.genderSpinner.setAdapter(adapter);
 
         SharedPreferences sharedPref= getActivity().
                 getSharedPreferences("userInformation", Context.MODE_PRIVATE);
@@ -196,12 +196,15 @@ public class ProfileFragmentDialog extends DialogFragment {
             binding.weightEdit.setText(sharedPref.getInt("weight",0) + "");
             binding.heightEdit.setText(sharedPref.getInt("height",0) + "");
 
-            if (sharedPref.getString("gender","Male").equals("Male")){
-                binding.genderSpinner.setSelection(0);
-            }
-            else{
-                binding.genderSpinner.setSelection(1);
-            }
+//            if (sharedPref.getString("gender","Male").equals("Male")){
+//                binding.genderSpinner.setSelection(0);
+//            }
+//            else if (sharedPref.getString("gender","Male").equals("Female")){
+//                binding.genderSpinner.setSelection(1);
+//            }
+//            else{
+//                binding.genderSpinner.setSelection(2);
+//            }
 
         }
 
@@ -259,7 +262,7 @@ public class ProfileFragmentDialog extends DialogFragment {
             errorMessage += "\n*Your input height can't be empty";
         }
         else {
-            if (Integer.parseInt(binding.heightEdit.getText().toString()) <= 50 || Integer.parseInt(binding.weightEdit.getText().toString()) >= 220) {
+            if (Integer.parseInt(binding.heightEdit.getText().toString()) <= 50 || Integer.parseInt(binding.heightEdit.getText().toString()) >= 220) {
                 errorMessage += "\n*Your input height needs to be between 50 and 220 cm";
             }
         }

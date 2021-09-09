@@ -57,15 +57,15 @@
             app:layout_constraintTop_toBottomOf="@+id/nameText"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/genderSpinner"
-            android:layout_width="133sp"
-            android:layout_height="48sp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/custom_spinner_background"
-            android:entries="@array/gender"
-            app:layout_constraintLeft_toLeftOf="@+id/nameEdit"
-            app:layout_constraintTop_toBottomOf="@+id/nameEdit"></Spinner>
+<!--        <Spinner-->
+<!--            android:id="@+id/genderSpinner"-->
+<!--            android:layout_width="133sp"-->
+<!--            android:layout_height="48sp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:background="@drawable/custom_spinner_background"-->
+<!--            android:entries="@array/gender"-->
+<!--            app:layout_constraintLeft_toLeftOf="@+id/nameEdit"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/nameEdit"></Spinner>-->
 
         <EditText
             android:id="@+id/heightEdit"
@@ -78,8 +78,8 @@
             android:paddingLeft="10dp"
             android:singleLine="true"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@+id/genderSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
+            app:layout_constraintLeft_toLeftOf="@+id/nameEdit"
+            app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
 
 
         <EditText
@@ -123,17 +123,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/weightEdit"
             />
 
-        <TextView
-            android:id="@+id/genderText"
-            android:layout_width="wrap_content"
-            android:text="Gender"
-            android:textStyle="bold"
-            android:textSize="14dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/nameText"
-            app:layout_constraintTop_toTopOf="@+id/genderSpinner"
-            app:layout_constraintBottom_toBottomOf="@+id/genderSpinner"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/genderText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:text="Gender"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/nameText"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/genderSpinner"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/genderSpinner"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/heightText"

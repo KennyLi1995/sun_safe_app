@@ -6,7 +6,10 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="UVI" />
 
-
+    <item
+        android:id="@+id/navigation_protection"
+        android:icon="@drawable/ic_protection"
+        android:title="Protection" />
 
     <item
         android:id="@+id/navigation_sunscreen"

@@ -18,7 +18,8 @@ import com.example.sun_safe_app.R;
 public class SunScreenResultDialog extends android.app.Dialog implements View.OnClickListener{
 
     private TextView textView1,textView2,textView3,textView4,textView5;
-    private ImageView imageView1;
+    private ImageView imageView1,imageView2;
+    private boolean ifWater = false;
     private String title,message1,message2,cancel,confirm;
     private int imageViewInt;
     private OnCancelListener cancelListener;
@@ -36,6 +37,11 @@ public class SunScreenResultDialog extends android.app.Dialog implements View.On
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void setImageView2(boolean ifWater) {
+        this.ifWater = ifWater;
+    }
+
 
     public void setMessage1(String message) {
         this.message1 = message;
@@ -76,13 +82,21 @@ public class SunScreenResultDialog extends android.app.Dialog implements View.On
         textView1= (TextView) findViewById(R.id.title);
         textView4= (TextView) findViewById(R.id.positiveText);
         textView5= (TextView) findViewById(R.id.applyAmount);
+        textView3= (TextView) findViewById(R.id.sunscreenRecommendation);
+
         imageView1 = (ImageView) findViewById(R.id.spf);
+        imageView2 = (ImageView) findViewById(R.id.waterproof);
+
         if(!TextUtils.isEmpty(title)){//不为空
             textView1.setText(title);
         }
 
         if(!TextUtils.isEmpty(message2)){//不为空
             textView5.setText(message2);
+        }
+
+        if(!TextUtils.isEmpty(message2)){//不为空
+            textView3.setText(message1);
         }
 
 
@@ -99,6 +113,14 @@ public class SunScreenResultDialog extends android.app.Dialog implements View.On
         }
         else if (imageViewInt == 50){
             imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.spf50_100x113));
+        }
+
+        if (ifWater){
+            imageView2.setVisibility(View.VISIBLE);
+        }
+        else{
+            imageView2.setVisibility(View.GONE);
+
         }
 
 

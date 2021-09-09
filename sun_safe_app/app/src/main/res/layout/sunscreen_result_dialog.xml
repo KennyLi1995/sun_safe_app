@@ -93,9 +93,7 @@
         <ImageView
             android:id="@+id/spf"
             android:layout_weight="1"
-            android:layout_marginRight="50dp"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/spf15_100x113"
             android:visibility="visible" />
@@ -103,12 +101,10 @@
             android:id="@+id/waterproof"
             android:layout_weight="1"
             android:padding="20dp"
-            android:layout_marginRight="50dp"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/waterproof_100x113"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
     <View

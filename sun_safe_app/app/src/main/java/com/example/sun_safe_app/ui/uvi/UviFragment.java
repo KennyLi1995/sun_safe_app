@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.sun_safe_app.R;
 import com.example.sun_safe_app.retrofit.RetrofitClient;
@@ -35,6 +39,8 @@ import com.squareup.okhttp.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -48,6 +54,21 @@ public class UviFragment extends Fragment {
     private UviFragmentModel UviFragmentModel;
     private RetrofitInterface retrofitInterface;
     private FragmentUviBinding binding;
+
+    Handler handler = new Handler();
+    // declare a new thread to get the current time, update 1 second
+    Runnable updateThread = new Runnable() {
+
+        public void run() {
+            handler.postDelayed(updateThread, 30000);
+            Log.e("test","oneTime");
+            if (getActivity() != null) {
+                Log.e("test","pass");
+                updateAdvice();
+            }
+        }
+
+    };
 
     @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,7 +93,7 @@ public class UviFragment extends Fragment {
         SharedPreferences sharedPref= getActivity().
                 getSharedPreferences("Default", Context.MODE_PRIVATE);
         int preTemp = sharedPref.getInt("preTemp",0);
-        int preUvi = sharedPref.getInt("preUvi",0);
+        float preUvi = (float) sharedPref.getFloat("preUvi", (float) 0.0);
         String preWeather = sharedPref.getString("preWeather"," ");
         int preWeatherCode = sharedPref.getInt("preWeatherCode",0);
 
@@ -170,9 +191,13 @@ public class UviFragment extends Fragment {
 //                  binding.weatherText.setText("clouds");
 
 
+        binding.insiderCircle.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.navigation_protection, null));
+        handler.post(updateThread);
 
 
 
+        updateAdvice();
         return view;
     }
 
@@ -207,7 +232,8 @@ public class UviFragment extends Fragment {
 //                        + "Current temp: " + weatherResponse.current.temp
 //                                    + "\n"
 ////                    );
-                    int uvi = Math.round(weatherResponse.current.uvi);
+//                  int uvi = Math.round(weatherResponse.current.uvi);
+                    float uvi = (float) new BigDecimal(weatherResponse.current.uvi).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
                     int temp = Math.round(weatherResponse.current.temp);
                     binding.uvdataText.setText(uvi + "");
                     binding.tempText.setText(temp + "");
@@ -218,11 +244,12 @@ public class UviFragment extends Fragment {
                             getSharedPreferences("Default", Context.MODE_PRIVATE);
                     SharedPreferences.Editor spEditor = sharedPref.edit();
                     spEditor.putInt("preTemp", temp);
-                    spEditor.putInt("preUvi", uvi);
+                    spEditor.putFloat("preUvi", uvi);
                     spEditor.putString("preWeather", weatherResponse.current.weather.get(0).main);
                     spEditor.putInt("preWeatherCode", weatherResponse.current.weather.get(0).id);
                     spEditor.apply();
 
+                    updateAdvice();
                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
 
                     binding.animationView.playAnimation();
@@ -253,7 +280,56 @@ public class UviFragment extends Fragment {
 
     }
 
-    public void changeColor(int uvData){
+
+    public void updateAdvice(){
+        SharedPreferences sharedPref= getActivity().
+                getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        float preUvi = sharedPref.getFloat("preUvi",0);
+
+        SharedPreferences sharedPref2= getActivity().
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
+        if (sharedPref2.getString("track","Begin Tracking").equals("Begin Tracking")){
+            binding.trackingLayout.setVisibility(View.INVISIBLE);
+
+        }
+        else{
+            binding.trackingLayout.setVisibility(View.VISIBLE);
+            Long startTime = sharedPref2.getLong("startTrackTime",System.currentTimeMillis());
+            Long passTiME = System.currentTimeMillis() - startTime;
+            int min = (int) (passTiME/60000);
+            int tranHour = min/60;
+            int tranMin = min - tranHour * 60;
+            binding.Hour.setText(tranHour + "");
+            binding.Min.setText(tranMin + "");
+        }
+
+        if (preUvi <= 2){
+            binding.infoText.setText("No protection\nrequired");
+//            binding.adviceText.setText("You can safely stay outside");
+            binding.insiderCircle.setCardBackgroundColor(0xFF38C022);
+            binding.cvImgActivity.setCardBackgroundColor(0xFF30AE25);
+
+        }
+        else if (preUvi <= 7){
+            binding.infoText.setText("Protection\nrequired");
+//            binding.adviceText.setText("●Seek shade during midday hours! \n●Slip on a shirt, slop on sunscreen and slap on a hat!");
+            binding.insiderCircle.setCardBackgroundColor(0xFFFFC107);
+            binding.cvImgActivity.setCardBackgroundColor(0xFFFCDD66);
+
+
+        }
+        else {
+            binding.infoText.setText("Extra\nprotection");
+//            binding.adviceText.setText("●Avoid being outside during midday hours! \n●Make sure you seek shade! Shirt, sunscreen and hat are a must!");
+            binding.insiderCircle.setCardBackgroundColor(0xFFD909FB);
+            binding.cvImgActivity.setCardBackgroundColor(0xFFF477FF);
+        }
+
+    }
+
+
+
+    public void changeColor(float uvData){
         if (uvData <= 2){
             binding.uvLevelText.setTextColor(getResources().getColor(R.color.colorLowUV));
             binding.uvdataText.setTextColor(getResources().getColor(R.color.colorLowUV));
@@ -318,6 +394,8 @@ public class UviFragment extends Fragment {
 
         super.onPause();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        handler.removeCallbacks(updateThread);
+
 
     }
 

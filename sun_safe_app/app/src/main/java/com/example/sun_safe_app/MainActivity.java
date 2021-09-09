@@ -2,7 +2,9 @@ package com.example.sun_safe_app;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +33,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.sun_safe_app.broadcast.MyBroadcastReceiver;
+import com.example.sun_safe_app.broadcast.MyBroadcastReceiver2;
 import com.example.sun_safe_app.databinding.ActivityMainBinding;
 import com.example.sun_safe_app.retrofit.RetrofitClient;
 import com.example.sun_safe_app.retrofit.RetrofitInterface;
@@ -81,6 +85,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -116,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_sunscreen, R.id.chooseClothesFragment)
+                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_sunscreen, R.id.chooseClothesFragment
+                , R.id.navigation_protection)
                 .build();
 
         //origin
@@ -317,9 +323,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.nav_view);
         if (position == 2)
-            bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
-        if (position == 1)
             bottomNavigationView.setSelectedItemId(R.id.navigation_sunscreen);
+        if (position == 1)
+            bottomNavigationView.setSelectedItemId(R.id.navigation_protection);
+        if (position == 3)
+            bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
 
 
 
@@ -490,6 +498,51 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivityForResult(intent, REQUEST_ENABLE_GPS);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void setAlarmForSunSafeTime(boolean ifContinue, int minute){
+
+//        int hour = 16;
+//        int minute2 = 44;
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY,hour);
+//        calendar.set(Calendar.MINUTE,minute2);
+//        calendar.set(Calendar.SECOND,0);
+//        calendar.set(Calendar.MILLISECOND,0);
+//        long c = calendar.getTimeInMillis();
+        long s = System.currentTimeMillis() + 60000 * minute;
+        if (s > System.currentTimeMillis()) {
+            Intent intent1 = new Intent(MainActivity.this, MyBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 234324243, intent1, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            if(ifContinue) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, s
+                        , pendingIntent);
+            }
+            else{
+                alarmManager.cancel(pendingIntent);
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void setAlarmForSunscreen(boolean ifContinue, int minute){
+
+        long s = System.currentTimeMillis() +  60000 * minute;
+        if (s > System.currentTimeMillis()) {
+            Intent intent1 = new Intent(this, MyBroadcastReceiver2.class);
+            intent1.setAction("great");
+            intent1.putExtra("time",minute);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1, intent1, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            if (ifContinue) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, s, pendingIntent);
+            }
+            else{
+                alarmManager.cancel(pendingIntent);
+            }
+
+        }
+    }
 
 
 

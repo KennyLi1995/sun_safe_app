@@ -18,11 +18,21 @@
         android:fillViewport="true"
         android:scrollbars="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/sun_safe2"
+                android:layout_width="wrap_content"
+                android:background="@drawable/sun_safe"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/addressText"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
     <TextView
         android:id="@+id/hiMessage"
@@ -57,6 +67,27 @@
 
             />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/weather_circle_transparent"
+                android:layout_marginTop="280sp"
+                android:layout_width="166sp"
+                android:layout_height="163sp"
+                android:alpha="0.8"
+                android:layout_gravity="left"
+                android:layout_marginRight="18sp"
+                app:layout_constraintTop_toBottomOf="@id/addressText"
+                app:layout_constraintLeft_toLeftOf = "parent"
+                app:cardCornerRadius="330dp"
+                app:cardPreventCornerOverlap="true"
+                >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="166sp"
+            android:layout_height="163sp"
+            android:orientation="vertical"
+            android:background="@drawable/background_weather"
+            >
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
@@ -69,13 +100,13 @@
         app:layout_constraintTop_toBottomOf="@id/addressText"
         app:layout_constraintLeft_toLeftOf = "parent"
         app:cardCornerRadius="330dp"
-        app:cardElevation="20dp"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardPreventCornerOverlap="true">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="166sp"
             android:layout_height="163sp"
             android:orientation="vertical"
-            android:background="@drawable/background_weather">
+            >
             <TextView
                 android:id="@+id/tempText"
                 android:layout_width="wrap_content"
@@ -199,35 +230,137 @@
                 android:id="@+id/insider_circle"
                 android:layout_width="291sp"
                 android:layout_height="278sp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_gravity="center"
                 app:cardCornerRadius="330dp"
+                android:clickable="true"
                 app:cardBackgroundColor="#FFC107"
-                app:cardElevation="10dp"
+                app:cardElevation="30dp"
                 app:cardPreventCornerOverlap="true"
-
-
                 >
 
-                <ImageView
-                    android:id="@+id/sun_safe"
-                    android:layout_width="wrap_content"
-                    android:background="@drawable/sun_safe"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="70dp"
-
-
-                    />
-
-                <TextView
-                    android:id="@+id/info_text"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="SUN PROTECTION REQUIRED!"
-                    android:textColor="@color/white"
-                    android:textSize="35dp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/infoText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center"
+                        android:text="SUN PROTECTION REQUIRED!"
+                        android:textColor="@color/white"
+                        android:textSize="35dp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/trackingLayout"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/infoText">
+
+                        <TextView
+                            android:id="@+id/UVExposuretracking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="UV Exposure tracking is"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/running"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="running"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/UVExposuretracking"  />
+
+                        <TextView
+                            android:id="@+id/Hour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0"
+                            android:textColor="#6E7880"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/running" />
+
+                        <TextView
+                            android:id="@+id/hourText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:text="Hours"
+                            android:textColor="#6E7880"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/Hour"
+                            app:layout_constraintLeft_toRightOf="@id/Hour"
+                            app:layout_constraintTop_toTopOf="@+id/Hour" />
+
+                        <TextView
+                            android:id="@+id/Min"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:text="0"
+                            android:textColor="#6E7880"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toRightOf="@+id/hourText"
+                            app:layout_constraintTop_toBottomOf="@id/running" />
+
+                        <TextView
+                            android:id="@+id/minText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:text="Minutes"
+                            android:textColor="#6E7880"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/Min"
+                            app:layout_constraintLeft_toRightOf="@id/Min"
+                            app:layout_constraintTop_toTopOf="@+id/Min" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/introText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:text="Protect yourself now >"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.cardview.widget.CardView>
 
@@ -264,7 +397,7 @@ Take a skin assessment and get personalised recommendations"
         android:layout_marginRight="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uv_circle"
         />

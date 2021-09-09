@@ -222,7 +222,7 @@ public class MySkinFragment extends Fragment {
             binding.nameText.setText(sharedPref.getString("name",""));
             binding.weightText.setText(sharedPref.getInt("weight", 0) + " KG");
             binding.heightText.setText(sharedPref.getInt("height", 0) + " CM");
-            binding.genderText.setText(sharedPref.getString("gender","Male"));
+//            binding.genderText.setText(sharedPref.getString("gender","Male"));
 
             Bitmap bitmap = ShareBitmapUtils.getBitmap(getActivity(), "photo",null);
             if(bitmap != null){
@@ -236,8 +236,8 @@ public class MySkinFragment extends Fragment {
 
 
             binding.nameText.setVisibility(View.VISIBLE);
-            binding.gender.setVisibility(View.VISIBLE);
-            binding.genderText.setVisibility(View.VISIBLE);
+//            binding.gender.setVisibility(View.VISIBLE);
+//            binding.genderText.setVisibility(View.VISIBLE);
             binding.Height.setVisibility(View.VISIBLE);
             binding.heightText.setVisibility(View.VISIBLE);
             binding.Weight.setVisibility(View.VISIBLE);

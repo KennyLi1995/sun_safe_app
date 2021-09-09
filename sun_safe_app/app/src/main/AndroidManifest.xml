@@ -25,6 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sun_safe_app">
 
+        <receiver android:name=".broadcast.MyBroadcastReceiver" />
+        <receiver android:name=".broadcast.MyBroadcastReceiver2" />
+
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

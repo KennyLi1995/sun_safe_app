@@ -26,6 +26,12 @@
         android:label="Skin Type Quiz"
         tools:layout="@layout/fragment_quiz" />
 
+    <fragment
+        android:id="@+id/navigation_protection"
+        android:name="com.example.sun_safe_app.ui.protection.ProtectionFragment"
+        android:label="Protection"
+        tools:layout="@layout/fragment_protection" />
+
 
 
 

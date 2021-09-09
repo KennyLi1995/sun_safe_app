@@ -8,6 +8,7 @@
     <array name="gender">
         <item>Male</item>
         <item>Female</item>
+        <item>Prefer not to disclose</item>
     </array>
 
 </resources>
