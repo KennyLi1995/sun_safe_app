@@ -271,30 +271,30 @@ public class MySkinFragment extends Fragment {
 //            binding.infoText.setText("Skin type " + getValue(skinType));
             binding.skinTypeCard.setVisibility(View.VISIBLE);
             binding.skinTypeExplainCard.setVisibility(View.VISIBLE);
-            binding.attemptText.setText("Re-attempt");
+            binding.attemptText.setText("Update");
             if (skinType == 1){
-                binding.skinTypeNumber.setText("I");
+                binding.skinTypeNumber.setText("1");
                 binding.skinTypeExplainText.setText("Extremely sensitive skin, always burns, never tans");
 
             }
             if (skinType == 2){
-                binding.skinTypeNumber.setText("II");
+                binding.skinTypeNumber.setText("2");
                 binding.skinTypeExplainText.setText("Very sensitive skin, burns easily, tans minimally");
 
             }
             if (skinType == 3){
-                binding.skinTypeNumber.setText("III");
+                binding.skinTypeNumber.setText("3");
                 binding.skinTypeExplainText.setText("Sensitive skin, sometimes burns, slowly tans to light brown");
 
             }
             if (skinType == 4){
-                binding.skinTypeNumber.setText("IV");
+                binding.skinTypeNumber.setText("4");
                 binding.skinTypeExplainText.setText("Mildly sensitive, burns minimally, always tans to moderate\n" +
                         "brown");
 
             }
             if (skinType == 5){
-                binding.skinTypeNumber.setText("V");
+                binding.skinTypeNumber.setText("5");
                 binding.skinTypeExplainText.setText("Resistant skin, rarely burns, tans well");
 
             }

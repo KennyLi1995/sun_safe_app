@@ -52,6 +52,7 @@ public class ProtectionFragment extends Fragment {
 
         }
 
+
         binding.start.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.navigation_sunscreen, null));
         SharedPreferences sharedPref= getActivity().
@@ -232,8 +233,8 @@ public class ProtectionFragment extends Fragment {
                     spEditor.putInt("inputmins",Integer.parseInt(binding.timeEdit2.getText().toString()));
                     spEditor.apply();
                     MainActivity parentActivity = (MainActivity) getActivity();
-                    parentActivity.setAlarmForSunscreen(false, 0);
-                    parentActivity.setAlarmForSunSafeTime(false, 0);
+                    parentActivity.setAlarmForSunscreen(false, 1);
+                    parentActivity.setAlarmForSunSafeTime(false, 1);
 
                 }
             }
@@ -271,13 +272,14 @@ public class ProtectionFragment extends Fragment {
     }
 
     public void updateAdvice(){
-        SharedPreferences sharedPref= getActivity().
-                getSharedPreferences("userInformation", Context.MODE_PRIVATE);
-        float preUvi = sharedPref.getFloat("preUvi",0);
+        SharedPreferences sharedPref2= getActivity().
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
+        float preUvi = sharedPref2.getFloat("preUvi",0);
+//                float preUvi = (float) 6.0;
 
         if (preUvi <= 2){
             binding.protection.setText("No protection required");
-            binding.adviceText.setText("You can safely stay outside");
+            binding.adviceText.setText("●You can safely stay outside");
             binding.adviceCard.setCardBackgroundColor(0xFFF0FFD3);
         }
         else if (preUvi <= 7){

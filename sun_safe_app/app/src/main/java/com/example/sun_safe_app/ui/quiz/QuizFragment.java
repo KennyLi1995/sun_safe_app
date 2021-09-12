@@ -41,6 +41,7 @@ import com.example.sun_safe_app.databinding.FragmentQuizBinding;
 import com.example.sun_safe_app.databinding.FragmentUviBinding;
 import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
+import com.example.sun_safe_app.utils.CommonDialog;
 import com.example.sun_safe_app.utils.SkinTypeDialog;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
@@ -67,20 +68,12 @@ public class QuizFragment extends Fragment {
         currentPage = 0;
         points = new HashMap<Integer,Integer>();
         createQA();
-
-
-
-
-
         binding.image1.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View button) {
                 //Set the button's appearance
-
                     currentPage = 0;
                     upDateUI();
-
-
             }
 
         });
@@ -555,7 +548,28 @@ public class QuizFragment extends Fragment {
                 });
 
 
-
+        binding.tooltipq1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonDialog dialog = new CommonDialog(getContext());
+                dialog.setTitle("Example");
+                dialog.setMessage2("Q1");
+                dialog.setImageView1("1");
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+            }
+        });
+        binding.tooltipq2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonDialog dialog = new CommonDialog(getContext());
+                dialog.setTitle("Example");
+                dialog.setMessage2("Q2");
+                dialog.setImageView1("2");
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+            }
+        });
 
 
 
@@ -724,6 +738,30 @@ public class QuizFragment extends Fragment {
             binding.image3.setSelected(false);
             binding.image4.setSelected(false);
             binding.LongtBar.setProgress(25);
+            binding.tooltipq1.setVisibility(View.VISIBLE);
+            binding.tooltipq2.setVisibility(View.VISIBLE);
+            binding.tooltipq1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonDialog dialog = new CommonDialog(getContext());
+                    dialog.setTitle("Example");
+                    dialog.setMessage2("Q1");
+                    dialog.setImageView1("1");
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
+                }
+            });
+            binding.tooltipq2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonDialog dialog = new CommonDialog(getContext());
+                    dialog.setTitle("Example");
+                    dialog.setMessage2("Q2");
+                    dialog.setImageView1("2");
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
+                }
+            });
 
         }
         if (currentPage == 1){
@@ -731,6 +769,30 @@ public class QuizFragment extends Fragment {
             binding.image3.setSelected(false);
             binding.image4.setSelected(false);
             binding.LongtBar.setProgress(50);
+            binding.tooltipq1.setVisibility(View.VISIBLE);
+            binding.tooltipq2.setVisibility(View.VISIBLE);
+            binding.tooltipq1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonDialog dialog = new CommonDialog(getContext());
+                    dialog.setTitle("Example");
+                    dialog.setMessage2("Q3");
+                    dialog.setImageView1("3");
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
+                }
+            });
+            binding.tooltipq2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonDialog dialog = new CommonDialog(getContext());
+                    dialog.setTitle("Example");
+                    dialog.setMessage2("Q4");
+                    dialog.setImageView1("4");
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
+                }
+            });
 
         }
         if (currentPage == 2){
@@ -738,6 +800,8 @@ public class QuizFragment extends Fragment {
             binding.image3.setSelected(true);
             binding.image4.setSelected(false);
             binding.LongtBar.setProgress(75);
+            binding.tooltipq1.setVisibility(View.GONE);
+            binding.tooltipq2.setVisibility(View.GONE);
 
         }
         if (currentPage == 3){
@@ -745,8 +809,11 @@ public class QuizFragment extends Fragment {
             binding.image3.setSelected(true);
             binding.image4.setSelected(true);
             binding.LongtBar.setProgress(100);
-
+            binding.tooltipq1.setVisibility(View.GONE);
+            binding.tooltipq2.setVisibility(View.GONE);
         }
+
+
 
 
             if (points.get(0) != null && points.get(1) != null){

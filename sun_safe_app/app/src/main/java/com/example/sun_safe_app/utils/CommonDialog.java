@@ -75,6 +75,8 @@ public class CommonDialog extends android.app.Dialog implements View.OnClickList
         textView1= (TextView) findViewById(R.id.title);
         textView4= (TextView) findViewById(R.id.positiveText);
         textView5= (TextView) findViewById(R.id.mainMessage);
+        imageView1  = (ImageView) findViewById(R.id.imageView1);
+
         if(!TextUtils.isEmpty(title)){//不为空
             textView1.setText(title);
         }
@@ -86,6 +88,23 @@ public class CommonDialog extends android.app.Dialog implements View.OnClickList
 
         if(!TextUtils.isEmpty(confirm)){//不为空
             textView4.setText(confirm);
+        }
+
+        if(!TextUtils.isEmpty(imageView1String)){//不为空
+            if (imageView1String.equals("1"))
+                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.eye));
+        }
+        if(!TextUtils.isEmpty(imageView1String)){//不为空
+            if (imageView1String.equals("2"))
+                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.hair));
+        }
+        if(!TextUtils.isEmpty(imageView1String)){//不为空
+            if (imageView1String.equals("3"))
+                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.skin));
+        }
+        if(!TextUtils.isEmpty(imageView1String)){//不为空
+            if (imageView1String.equals("4"))
+                imageView1.setBackground(getContext().getResources().getDrawable(R.drawable.freckles));
         }
 
 

@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setAlarmForSunscreen(boolean ifContinue, int minute){
 
-        long s = System.currentTimeMillis() +  60000 * minute;
+        long s = System.currentTimeMillis() +  6000 * minute;
         if (s > System.currentTimeMillis()) {
             Intent intent1 = new Intent(this, MyBroadcastReceiver2.class);
             intent1.setAction("great");

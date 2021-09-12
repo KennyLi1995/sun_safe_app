@@ -191,8 +191,7 @@ public class UviFragment extends Fragment {
 //                  binding.weatherText.setText("clouds");
 
 
-        binding.insiderCircle.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.navigation_protection, null));
+
         handler.post(updateThread);
 
 
@@ -285,8 +284,23 @@ public class UviFragment extends Fragment {
         SharedPreferences sharedPref= getActivity().
                 getSharedPreferences("Default", Context.MODE_PRIVATE);
         float preUvi = sharedPref.getFloat("preUvi",0);
+//        preUvi = (float) 6.0;
 
-        SharedPreferences sharedPref2= getActivity().
+        if (sharedPref.getInt("skinType",0) == 0) {
+            binding.askCompletePROFILE.setVisibility(View.VISIBLE);
+            binding.introText.setVisibility(View.GONE);
+            binding.insiderCircle.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.navigation_my_skin, null));
+        }
+        else{
+            binding.askCompletePROFILE.setVisibility(View.GONE);
+            binding.introText.setVisibility(View.VISIBLE);
+            binding.insiderCircle.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.navigation_protection, null));
+        }
+
+
+            SharedPreferences sharedPref2= getActivity().
                 getSharedPreferences("Default", Context.MODE_PRIVATE);
         if (sharedPref2.getString("track","Begin Tracking").equals("Begin Tracking")){
             binding.trackingLayout.setVisibility(View.INVISIBLE);

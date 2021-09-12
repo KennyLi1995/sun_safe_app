@@ -89,7 +89,7 @@ public class MyBroadcastReceiver2 extends BroadcastReceiver {
         mgr.cancel(pi);
         Log.e("sunsreen", "onetime");
         int min = i.getIntExtra("time",0);
-        mgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+ 60000*min, pi);
+        mgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+ 6000*min, pi);
     }
 
 

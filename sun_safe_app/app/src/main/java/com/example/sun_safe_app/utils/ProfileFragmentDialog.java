@@ -157,22 +157,12 @@ public class ProfileFragmentDialog extends DialogFragment {
                     spEditor.putInt("weight", weight);
                     spEditor.putBoolean("ifInput", true);
 
-
-
-
-
-
-
                     spEditor.apply();
                     MyViewModel myViewModel =  new ViewModelProvider(getActivity()).get(MyViewModel.class);
-
                     Bitmap bitmap = myViewModel.getBitmapMutableLiveData().getValue();
                     ShareBitmapUtils.putBitmap(getActivity(), "photo", bitmap);
-
-
                     MySkinViewModel vm =  new ViewModelProvider(getActivity()).get(MySkinViewModel.class);
                     vm.setMessage("1");
-
                     dismiss();
                 }
 

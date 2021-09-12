@@ -21,42 +21,47 @@
             android:layout_height="match_parent"
             android:background="@drawable/background_gradient">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/informationCard"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/sunsafeLayOut"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/informationCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25sp"
-                android:layout_marginTop="15sp"
-                android:layout_marginRight="25sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="5sp"
+                android:layout_weight="1"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="5dp"
-                app:contentPaddingBottom="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trackingCard"
+                app:contentPadding="10dp"
                 app:strokeColor="#E5E5E5"
                 app:strokeWidth="1dp">
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/spfCalculator"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="SPF calculator"
                         android:textColor="#3771C8"
-                        android:textSize="30sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -64,16 +69,17 @@
 
                     <TextView
                         android:id="@+id/calculatorHint"
-                        android:layout_width="match_parent"
+                        android:layout_width="123dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:gravity="center"
+                        android:singleLine="false"
                         android:text="CALCULATED THE OPTIMAL SPF FOR YOUR SKIN TYPE"
                         android:textColor="#3771C8"
-                        android:textSize="18sp"
+                        android:textSize="10sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spfCalculator" />
+
 
                     <TextView
                         android:id="@+id/sunScreenAmount"
@@ -84,7 +90,7 @@
                         android:gravity="center"
                         android:text="4 teaspoons (19ml) "
                         android:textColor="#3771C8"
-                        android:textSize="24sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,14 +99,14 @@
 
                     <TextView
                         android:id="@+id/sunScreenTypeHint"
-                        android:layout_width="match_parent"
+                        android:layout_width="139dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text=""
                         android:textColor="#3771C8"
-                        android:textSize="18sp"
+                        android:textSize="10sp"
                         android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -108,8 +114,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/start"
-                        android:layout_width="186sp"
-                        android:layout_height="48sp"
+                        android:layout_width="115sp"
+                        android:layout_height="34sp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:clickable="true"
@@ -120,20 +126,19 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/sunScreenTypeHint"
-
                         app:strokeColor="#E5E5E5"
                         app:strokeWidth="1dp">
 
                         <TextView
                             android:id="@+id/starttText"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="sans-serif"
                             android:gravity="center"
-                            android:text="Getting Started"
+                            android:text="Calculate"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             android:typeface="normal" />
                     </com.google.android.material.card.MaterialCardView>
@@ -145,27 +150,24 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/sunsafeteCard"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25sp"
                 android:layout_marginTop="30sp"
                 android:layout_marginRight="25sp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5sp"
+                app:contentPadding="10dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="#FFEBEB"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="5dp"
                 app:contentPaddingBottom="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="#E5E5E5"
 
                 app:strokeWidth="1dp">
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -180,15 +182,13 @@
                         android:gravity="center"
                         android:text="Risk of sunburn in"
                         android:textColor="#3771C8"
-                        android:textSize="30sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/nonsafe"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -201,7 +201,7 @@
                             android:layout_gravity="center"
                             android:text="0"
                             android:textColor="#6E7880"
-                            android:textSize="36sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -215,7 +215,7 @@
                             android:gravity="center"
                             android:text="Hours"
                             android:textColor="#6E7880"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="@+id/Hour"
                             app:layout_constraintLeft_toRightOf="@id/Hour"
                             app:layout_constraintTop_toTopOf="@+id/Hour" />
@@ -228,7 +228,7 @@
                             android:layout_marginLeft="10dp"
                             android:text="0"
                             android:textColor="#6E7880"
-                            android:textSize="36sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
                             app:layout_constraintLeft_toRightOf="@+id/hourText"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -242,16 +242,14 @@
                             android:gravity="center"
                             android:text="Minutes"
                             android:textColor="#6E7880"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="@+id/Min"
                             app:layout_constraintLeft_toRightOf="@id/Min"
                             app:layout_constraintTop_toTopOf="@+id/Min" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/safe"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -264,7 +262,7 @@
                             android:gravity="center"
                             android:text="Minimal risk \n(Over 8 hours)"
                             android:textColor="@color/black"
-                            android:textSize="30sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -289,14 +287,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="OUTSIDE AT CURRENT UV INDEX"
+                        android:singleLine="false"
+                        android:gravity="center"
+                        android:text="OUTSIDE AT CURRENT\nUV INDEX"
                         android:textColor="#3771C8"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
 
             </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/adviceCard"
@@ -313,13 +316,11 @@
                 app:contentPaddingBottom="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sunsafeteCard"
+                app:layout_constraintTop_toBottomOf="@id/sunsafeLayOut"
                 app:strokeColor="#E5E5E5"
                 app:strokeWidth="1dp">
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -333,7 +334,7 @@
                         android:gravity="center"
                         android:text="Protection required"
                         android:textColor="#3771C8"
-                        android:textSize="30sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -346,11 +347,11 @@
                         android:layout_gravity="center"
                         android:padding="15dp"
                         android:text="◉Avoid being outside during midday hours! \n◉Make sure you seek shade Shirt, suncreen and hat are a must"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textColor="#6E7880"
+                        android:textSize="14sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spfCalculator" />
+                        app:layout_constraintTop_toBottomOf="@+id/protection" />
 
 
                 </LinearLayout>
@@ -427,9 +428,7 @@
                             android:text="SPF 50" />
                     </RadioGroup>
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -451,25 +450,22 @@
                             android:layout_below="@id/timeEdit"
                             android:checked="true" />
 
-                        <TextView
-                            android:id="@+id/sunscreenTrackingText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp"
-                            android:text="Notify me to top-up my sunscreen every:"
-                            android:textColor="#6E7880"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                <TextView
+                    android:id="@+id/sunscreenTrackingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/checkBox1"
+                    android:text="Notify me to top-up my sunscreen every:"
 
-                            android:layout_toRightOf = "@id/checkBox1"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            app:layout_constraintLeft_toRightOf="@+id/checkBox1"
-                            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
-                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
+                    android:textColor="#6E7880"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/checkBox1"
+                    app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@id/checkBox1"
                     android:layout_below="@id/sunscreenTrackingText"
@@ -477,50 +473,49 @@
                     android:layout_height="wrap_content">
 
 
-                         <EditText
-                            android:id="@+id/timeEdit2"
-                            android:layout_width="133sp"
-                            android:layout_height="48sp"
-                            android:background="@drawable/custom_edittext_background"
-                            android:hint="minutes"
-                            android:inputType="number"
-                             app:layout_constraintLeft_toLeftOf="parent"
-                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="120"
-                            android:paddingLeft="10dp"
-                            android:singleLine="true"
-                            android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/timeEdit2"
+                        android:layout_width="133sp"
+                        android:layout_height="24sp"
+                        android:background="@drawable/custom_edittext_background"
+                        android:hint="minutes"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:text="120"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/minutes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:text="minutes"
-                            android:textColor="#6E7880"
-                            android:textSize="18sp"
-                            app:layout_constraintLeft_toRightOf="@id/timeEdit2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginLeft="10dp"
-                            android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="minutes"
+                        android:textColor="#6E7880"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/timeEdit2"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                      </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-                            android:id="@+id/sunscreenExprosureText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:text="Notify me when my Safe sun exposure time for today ran out"
-                            android:textColor="#6E7880"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                <TextView
+                    android:id="@+id/sunscreenExprosureText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/timeEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/checkBox2"
+                    android:text="Notify me when my Safe sun exposure time for today ran out"
 
-                            android:layout_toRightOf = "@id/checkBox2"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@id/timeEdit"/>
+                    android:textColor="#6E7880"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/errorMessage"
