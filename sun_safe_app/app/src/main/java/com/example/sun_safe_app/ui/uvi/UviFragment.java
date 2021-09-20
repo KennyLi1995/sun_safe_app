@@ -114,6 +114,9 @@ public class UviFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 binding.addressText.setText(s);
+                SharedPreferences.Editor spEditor = sharedPref.edit();
+                spEditor.putString("preAddress", s);
+                spEditor.apply();
             }
         });
 
@@ -125,6 +128,14 @@ public class UviFragment extends Fragment {
                     String[] ss = s.split(" ");
                     String lat = ss[0];
                     String longi = ss[1];
+                    SharedPreferences sharedPref= getActivity().
+                            getSharedPreferences("Default", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor spEditor = sharedPref.edit();
+
+                    spEditor.putString("preLat", lat);
+                    spEditor.putString("preLon", longi);
+                    spEditor.apply();
+
                     updateWeather(lat,longi);
 
                 }

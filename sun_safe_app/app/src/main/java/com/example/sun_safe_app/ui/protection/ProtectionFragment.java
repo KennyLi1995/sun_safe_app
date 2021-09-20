@@ -52,7 +52,6 @@ public class ProtectionFragment extends Fragment {
 
         }
 
-
         binding.start.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.navigation_sunscreen, null));
         SharedPreferences sharedPref= getActivity().
@@ -66,7 +65,6 @@ public class ProtectionFragment extends Fragment {
             binding.trackingCard.setVisibility(View.GONE);
             binding.goToText.setVisibility(View.VISIBLE);
             binding.todo.setVisibility(View.VISIBLE);
-
         }
         else{
             binding.informationCard.setVisibility(View.VISIBLE);
@@ -279,17 +277,17 @@ public class ProtectionFragment extends Fragment {
 
         if (preUvi <= 2){
             binding.protection.setText("No protection required");
-            binding.adviceText.setText("●You can safely stay outside");
+            binding.adviceText.setText("●You can safely stay outside \n●Still remember to slop on sunscreen and slide on sunglasses if necessary!");
             binding.adviceCard.setCardBackgroundColor(0xFFF0FFD3);
         }
         else if (preUvi <= 7){
             binding.protection.setText("Protection required");
-            binding.adviceText.setText("●Seek shade during midday hours! \n●Slip on a shirt, slop on sunscreen and slap on a hat!");
+            binding.adviceText.setText("●Seek shade during midday hours! \n●Slip on a shirt, slide on sunglasses, slop on sunscreen and slap on a hat!");
             binding.adviceCard.setCardBackgroundColor(0xFFFFF5E6);
         }
         else {
             binding.protection.setText("Extra protection");
-            binding.adviceText.setText("●Avoid being outside during midday hours! \n●Make sure you seek shade! Shirt, sunscreen and hat are a must!");
+            binding.adviceText.setText("●Avoid being outside during midday hours! \n●Make sure you seek shade! Shirt, sunglasses, sunscreen and hat are a must!");
             binding.adviceCard.setCardBackgroundColor(0xFFFFEBEB);
         }
 

@@ -179,6 +179,14 @@ public class SunscreenFragment extends Fragment {
             });
         }
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+
+            }
+        });
+
         return view;
     }
 }

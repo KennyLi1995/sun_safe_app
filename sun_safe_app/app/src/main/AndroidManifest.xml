@@ -28,6 +28,9 @@
         <receiver android:name=".broadcast.MyBroadcastReceiver" />
         <receiver android:name=".broadcast.MyBroadcastReceiver2" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
 
         <provider

@@ -64,31 +64,6 @@
         android:background="#000000"/>
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv3"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Change my answer"-->
-<!--            android:textColor="#0FA8CE"-->
-<!--            android:textSize="20sp"-->
-<!--            />-->
-
-<!--        <View-->
-<!--            android:layout_width="0.5dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="#000000"/>-->
-
-<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:clickable="true"-->
-<!--        android:id="@+id/clickText"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        >-->
-
         <TextView
             android:id="@+id/positiveText"
             android:layout_width="match_parent"

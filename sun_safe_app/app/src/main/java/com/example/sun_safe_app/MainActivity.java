@@ -39,10 +39,12 @@ import com.example.sun_safe_app.databinding.ActivityMainBinding;
 import com.example.sun_safe_app.retrofit.RetrofitClient;
 import com.example.sun_safe_app.retrofit.RetrofitInterface;
 import com.example.sun_safe_app.retrofit.WeatherResponse;
+import com.example.sun_safe_app.ui.activityPlan.ActivityDataFragment;
 import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragmentLatLongModel;
 import com.example.sun_safe_app.ui.uvi.UviFragmentModel;
+import com.example.sun_safe_app.utils.AppUtil;
 import com.example.sun_safe_app.utils.GpsReceiver;
 import com.example.sun_safe_app.utils.LocationCallBack;
 import com.google.android.gms.common.api.ApiException;
@@ -62,6 +64,7 @@ import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mapbox.mapboxsdk.Mapbox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,6 +87,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -101,8 +105,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private String currentLocation;
     private String current_locality;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    public HashMap<Integer,HashMap<Long, String>> map = new HashMap<>();
     boolean gps_enabled;
     boolean network_enabled;
+
 
 
 
@@ -113,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        String token = getString(R.string.mapbox_access_token);
+//        Mapbox.getInstance(this,token);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_sunscreen, R.id.chooseClothesFragment
+                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_activity, R.id.chooseClothesFragment
                 , R.id.navigation_protection)
                 .build();
 
@@ -310,13 +318,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void replaceFragment(Fragment nextFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction =
-                fragmentManager.beginTransaction();
-        fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.replace(R.id.nav_host_fragment,
-                nextFragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.animate_slide_left_enter, R.anim.animate_slide_left_exit, R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit)
+                .add(R.id.nav_host_fragment, new ActivityDataFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     public void onClickItem(int position){
@@ -527,7 +534,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setAlarmForSunscreen(boolean ifContinue, int minute){
 
-        long s = System.currentTimeMillis() +  6000 * minute;
+        long s = System.currentTimeMillis() +  60000 * minute;
         if (s > System.currentTimeMillis()) {
             Intent intent1 = new Intent(this, MyBroadcastReceiver2.class);
             intent1.setAction("great");
@@ -543,6 +550,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         }
     }
+
 
 
 

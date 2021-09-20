@@ -3,6 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZmFuZ3p1b2xpIiwiYSI6ImNrb2w4czMwdjBscHYydm83OHQ2aG51b2cifQ.SvrUY9vq2K-tXImD0uhWcA</string>
+    <string name="google_maps_key">AIzaSyBO0uMs9YY7XNUE_CE0q9m9_yTGPrtxPUw</string>
 
 
     <array name="gender">

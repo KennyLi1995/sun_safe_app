@@ -4,6 +4,7 @@
     android:id="@+id/wholeLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:context=".ui.sunscreen.ChooseClothesFragment"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

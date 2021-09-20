@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activityPlan.ActivityDataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_alignParentTop="true"
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <include
+        layout="@layout/app_bar_main"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_back_white_arrow"
+            android:padding="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="casual"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:layout_below="@id/app_bar_layout"
+        android:layout_above="@id/delete"
+        tools:layout_editor_absoluteY="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/barChartCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:layout_marginLeft="25sp"
+            android:layout_marginRight="25sp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#F1F1F1"
+            app:cardElevation="5dp"
+            app:contentPaddingTop="10dp"
+            app:contentPaddingBottom="0dp"
+
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#ECECEC"
+            app:strokeWidth="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart1"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/adviceCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    app:cardCornerRadius="20dp"
+                    android:layout_below="@id/barChart1"
+                    app:cardElevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="#ECECEC"
+                    app:strokeWidth="1dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/leftSideLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingBottom="5dp"
+                        android:background="@color/dialog_1">
+
+
+                        <TextView
+                            android:id="@+id/doing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="Doing"
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="date"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/doing" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="date"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                        <TextView
+                            android:id="@+id/location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:text="locationasdaslocationasdasdasdasdasdlocationasdasdasdasdasdlocationasdasdasdasdasdlocationasdasdasdasdasdlocationasdasdasdasdasdlocationasdasdasdasdasddasdasdasd"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:paddingRight="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/time" />
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/rightSideLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FF00E05A"
+                         android:paddingBottom="10dp"
+                         android:layout_below="@+id/leftSideLayout"
+                         app:layout_constraintVertical_bias="0.0">
+
+
+
+                        <TextView
+                            android:id="@+id/highestUV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Highest UV: 11 (Extremly high)"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/highestUVHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/highestUV"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_marginLeft="10dp"
+                            android:text="Highest UV Time: "
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                         <TextView
+                             android:id="@+id/advice"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:padding="5dp"
+                             app:layout_constraintTop_toBottomOf="@id/highestUVHour"
+                             app:layout_constraintLeft_toLeftOf="parent"
+                             android:layout_marginBottom="10dp"
+                             android:layout_marginTop="5dp"
+                             android:text="● Wear sunglasses on bright days.\n● Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure."
+                             android:textColor="@color/white"
+                             android:textSize="14sp"
+                             android:textStyle="bold" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </RelativeLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#F44336"
+        android:layout_alignParentBottom="true"
+        app:strokeColor="#E5E5E5"
+        app:strokeWidth="1dp">
+        <TextView
+            android:id="@+id/deleteEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Delete this activity"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

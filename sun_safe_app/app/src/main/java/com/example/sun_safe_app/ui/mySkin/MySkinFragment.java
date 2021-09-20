@@ -125,11 +125,6 @@ public class MySkinFragment extends Fragment {
                 myDialog.show(getActivity().getSupportFragmentManager(),"myDialog");
 
 
-
-
-
-
-
             }
         });
 

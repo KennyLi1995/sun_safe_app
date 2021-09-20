@@ -48,6 +48,29 @@
         android:id="@+id/chooseClothesFragment"
         android:name="com.example.sun_safe_app.ui.sunscreen.ChooseClothesFragment"
         android:label="ChooseClothesFragment" />
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="com.example.sun_safe_app.ui.activityPlan.ActivityPlanFragment"
+        android:label="ActivityPlanFragment" >
+    <action
+        android:id="@+id/activity_to_map"
+        app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_navigation_activity_to_activityDataFragment"
+            app:destination="@id/activityDataFragment"
+            app:enterAnim="@anim/fragment_slide_left_enter"
+            app:exitAnim="@anim/fragment_slide_left_exit"
+            app:popEnterAnim="@anim/fragment_slide_right_enter"
+            app:popExitAnim="@anim/fragment_slide_right_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.sun_safe_app.ui.map.MapsFragment"
+        android:label="MapsFragment" />
+    <fragment
+        android:id="@+id/activityDataFragment"
+        android:name="com.example.sun_safe_app.ui.activityPlan.ActivityDataFragment"
+        android:label="ActivityDataFragment" />
 </navigation>
 
 

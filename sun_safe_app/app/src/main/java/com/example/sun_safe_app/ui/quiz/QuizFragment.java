@@ -621,12 +621,12 @@ public class QuizFragment extends Fragment {
         questions = new ArrayList<String>();
         questions.add("Your eye color is:");
         questions.add("Your natural hair color is:");
-        questions.add("Your natural skin color (before sun exposure) is:");
+        questions.add("Your natural skin color is:");
         questions.add("How many freckles do you have on unexposed areas of your skin?");
         questions.add("How does your skin respond to the sun?");
-        questions.add("Does your skin tan?");
+        questions.add("Do you turn brown after several hours of sun exposure?");
         questions.add("How deeply do you tan?");
-        questions.add("How sensitive is your face to the sun? ");
+        questions.add("How sensitive is your face to the sun?");
         answers = new ArrayList<ArrayList<String>>();
 
 
@@ -671,7 +671,7 @@ public class QuizFragment extends Fragment {
             add("Never burns");
         }};
         ArrayList<String> q6 = new ArrayList<String>() {{
-            add("Never — I always burn");
+            add("Never");
             add("Seldom");
             add("Sometimes");
             add("Often");

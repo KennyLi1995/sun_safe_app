@@ -12,9 +12,9 @@
         android:title="Protection" />
 
     <item
-        android:id="@+id/navigation_sunscreen"
-        android:icon="@drawable/ic_sunscreen_black"
-        android:title="Sunscreen" />
+        android:id="@+id/navigation_activity"
+        android:icon="@drawable/ic_activities"
+        android:title="Activities" />
 
     <item
         android:id="@+id/navigation_my_skin"

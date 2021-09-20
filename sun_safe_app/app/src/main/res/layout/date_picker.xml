@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    android:gravity="center_horizontal"
+    >
+
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="calendar"
+        android:background="@color/white"
+        android:theme="@style/Theme.Sun_safe_app"
+        android:layout_gravity="center_horizontal"></DatePicker>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="#000000"/>
+
+
+    <TextView
+        android:id="@+id/positiveText"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:gravity="center"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:text="OK"
+        android:textColor="#0FA8CE"
+        android:textSize="20sp"
+        />
+
+</LinearLayout>
