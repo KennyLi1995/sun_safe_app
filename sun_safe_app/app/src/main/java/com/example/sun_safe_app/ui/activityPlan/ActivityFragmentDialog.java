@@ -76,15 +76,16 @@ public class ActivityFragmentDialog extends DialogFragment{
     @Override
     public void onStart() {
         /*
-            因为View在添加后,对话框最外层的ViewGroup并不知道我们导入的View所需要的的宽度。 所以我们需要在onStart生命周期里修改对话框尺寸参数
+            Because the View is added, the outermost ViewGroup of the dialog box does not know the width of the View we import.  
+            So we need to change the dialog size parameter during the onStart life cycle  
          */
-        //设置宽度，固定代码
+        //set the width
         WindowManager m= getDialog().getWindow().getWindowManager();
         Display d=m.getDefaultDisplay();
         WindowManager.LayoutParams p= getDialog().getWindow().getAttributes();
         Point size=new Point();
         d.getSize(size);
-        p.width=(int)(size.x*0.95);//设置dialog的宽度为当前手机屏幕宽度*0.8
+        p.width=(int)(size.x*0.95);//Set the dialog width to the current phone screen width *0.8
         getDialog().getWindow().setAttributes(p);
         super.onStart();
     }
