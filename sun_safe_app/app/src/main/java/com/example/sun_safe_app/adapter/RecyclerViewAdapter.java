@@ -58,6 +58,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder
                                          viewHolder, int position) {
+        if(position > painRecords.size() - 1) {
+            viewHolder.binding.latestContentLayout.setVisibility(View.INVISIBLE);
+            return;
+        }
         final EventRecord eventRecord = painRecords.get(position);
         viewHolder.binding.adviceCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +195,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     // this method get the record size
     @Override
     public int getItemCount() {
-        return painRecords.size();
+        return painRecords.size() + 1;
     }
 
     // this class is the viewHolder class

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rsv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/spinnerCity"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="25dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginRight="16dp"
+        android:entries="@array/cityName"
+        android:background="@drawable/spinner_drop_down_shape"
+        android:layout_height="50dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/switchCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:layout_marginLeft="25sp"
+        android:layout_marginRight="25sp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barChartCard"
+        app:strokeColor="#ECECEC"
+        app:strokeWidth="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.sevenheaven.segmentcontrol.SegmentControl
+                android:id="@+id/segment_control"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                app:selectedColor="#32ADFF"
+                app:normalColor="#FFFFFF"
+                app:cornerRadius="20dp"
+                app:separatorWidth="2dp"
+                app:boundWidth="2dp"
+                app:texts="By season|By month"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                app:verticalGap="10dp"
+                app:horizonGap="10dp"/>
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mySkin.MySkinFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/barChartCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:layout_marginLeft="25sp"
+        android:layout_marginRight="25sp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:contentPaddingTop="10dp"
+        app:contentPaddingBottom="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#ECECEC"
+        app:strokeWidth="1dp">
+
+    <RelativeLayout
+        android:id="@+id/pieChartLayOut"
+        android:layout_width="match_parent"
+        android:paddingBottom="5dp"
+        android:layout_height="match_parent">
+
+        <Spinner
+            android:id="@+id/spinnerSeason"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="25dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="5dp"
+            android:entries="@array/season"
+            android:background="@drawable/spinner_drop_down_shape_season"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/pieChartTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_below="@id/spinnerSeason"
+            android:text="UV level percentages for each season"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_height="250dp"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/pieChartTitle"
+            android:id="@+id/pieChart" />
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/barChartLayOut"
+            android:layout_width="match_parent"
+            android:paddingBottom="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/titleBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="Average daily maximum UVI for each month"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/yAxis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:layout_below="@id/titleBarChart"
+                android:text="UVI"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart1"
+                android:layout_below="@+id/yAxis"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+
+            <TextView
+                android:id="@+id/xAxis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/barChart1"
+                android:gravity="center"
+                android:text="Month"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/infoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:layout_marginLeft="25sp"
+        app:cardBackgroundColor="#F1F1F1"
+        android:layout_marginRight="25sp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:contentPaddingTop="10dp"
+        app:contentPaddingBottom="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barChartCard"
+        app:strokeColor="#ECECEC"
+        app:strokeWidth="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/highestUV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Above 90% of the time during the summer, the UV in Australia is either at the level of extremely high or very high. Even during the spring or autumn, the UV in most erea could reach at least the high level more than 50% of the time. Taking appropriate protection to prevent youself from sunburn is literally neccessary."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</LinearLayout>
+

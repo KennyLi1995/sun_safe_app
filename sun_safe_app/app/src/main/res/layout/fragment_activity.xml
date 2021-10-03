@@ -29,7 +29,6 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="18dp"
-            android:fontFamily="casual"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -67,7 +66,7 @@
         android:layout_width="match_parent"
         android:id="@+id/mainLayout"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="0dp"
         android:layout_below="@+id/instruction"
         android:layout_height="match_parent">
 

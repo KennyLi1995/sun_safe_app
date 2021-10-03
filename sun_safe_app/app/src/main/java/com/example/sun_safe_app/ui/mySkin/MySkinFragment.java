@@ -203,7 +203,7 @@ public class MySkinFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ((MainActivity) getActivity()).selectBottomMenu(3); //change value depending on your bottom menu position
+        ((MainActivity) getActivity()).selectBottomMenu(4); //change value depending on your bottom menu position
         updateUI();
     }
 

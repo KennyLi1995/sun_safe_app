@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             bottomNavigationView.setSelectedItemId(R.id.navigation_sunscreen);
         if (position == 1)
             bottomNavigationView.setSelectedItemId(R.id.navigation_protection);
-        if (position == 3)
+        if (position == 4)
             bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
 
 

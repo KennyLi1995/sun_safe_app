@@ -76,17 +76,13 @@
         android:foreground="?android:attr/selectableItemBackground"
         rsv:cardElevation="5dp"
         rsv:cardBackgroundColor="@color/white"
-
         rsv:strokeWidth="1dp"
         rsv:strokeColor="#E5E5E5"
-
         rsv:layout_constraintLeft_toLeftOf="parent"
         rsv:layout_constraintRight_toRightOf="parent"
-
         android:layout_marginTop="30sp"
         android:layout_marginLeft="35sp"
         android:layout_marginRight="35sp"
-
         rsv:layout_constraintTop_toTopOf="parent"
     >
         <androidx.constraintlayout.widget.ConstraintLayout

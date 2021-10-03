@@ -61,7 +61,7 @@ public class SunscreenFragment extends Fragment {
                         @Override
                         public void onConfirm(CommonDialog dialog) {
                             MainActivity activity = (MainActivity) getActivity();
-                            activity.onClickItem(3);
+                            activity.onClickItem(4);
                         }
                     });
                     dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

@@ -71,6 +71,10 @@
         android:id="@+id/activityDataFragment"
         android:name="com.example.sun_safe_app.ui.activityPlan.ActivityDataFragment"
         android:label="ActivityDataFragment" />
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="com.example.sun_safe_app.ui.info.DataInfoFragment"
+        android:label="DataInfoFragment" />
 </navigation>
 
 

@@ -17,11 +17,14 @@
         android:title="Activities" />
 
     <item
+        android:id="@+id/navigation_info"
+        android:icon="@drawable/ic_data_info"
+        android:title="Info" />
+
+    <item
         android:id="@+id/navigation_my_skin"
         android:icon="@drawable/ic_profile_black"
         android:title="Profile" />
-
-
 
 </menu>
 
