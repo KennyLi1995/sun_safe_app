@@ -103,7 +103,8 @@ public class UviFragment extends Fragment {
         changeColor(preUvi);
         binding.animationView.setAnimation(AppUtil.getWeatherAnimation(preWeatherCode));
         binding.animationView.playAnimation();
-
+        binding.uvCircle.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.action_navigation_uvi_to_uvForecast, null));
 
 
 //        binding.animationView.setAnimation(AppUtil.getWeatherAnimation(500));
@@ -131,11 +132,9 @@ public class UviFragment extends Fragment {
                     SharedPreferences sharedPref= getActivity().
                             getSharedPreferences("Default", Context.MODE_PRIVATE);
                     SharedPreferences.Editor spEditor = sharedPref.edit();
-
                     spEditor.putString("preLat", lat);
                     spEditor.putString("preLon", longi);
                     spEditor.apply();
-
                     updateWeather(lat,longi);
 
                 }
@@ -261,8 +260,10 @@ public class UviFragment extends Fragment {
 
                     updateAdvice();
                    binding.animationView.setAnimation(AppUtil.getWeatherAnimation(weatherResponse.current.weather.get(0).id));
+                   binding.animationView.playAnimation();
 
-                    binding.animationView.playAnimation();
+
+
 
 //                    binding.weatherText.setText(weatherResponse.current.weather.main);
 

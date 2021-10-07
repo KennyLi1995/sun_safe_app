@@ -65,11 +65,11 @@ public class ActivityDataFragment extends Fragment {
     private FragmentActivityDataBinding binding;
     private int uid;
     private BarChart barChart;
-    private YAxis leftAxis;             
-    private YAxis rightAxis;            
-    private XAxis xAxis;                
-    private Legend legend;              
-    private LimitLine limitLine;        
+    private YAxis leftAxis;             //左侧Y轴
+    private YAxis rightAxis;            //右侧Y轴
+    private XAxis xAxis;                //X轴
+    private Legend legend;              //图例
+    private LimitLine limitLine;        //限制线
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -118,7 +118,7 @@ public class ActivityDataFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        SimpleDateFormat sd2 =   new SimpleDateFormat( "EEEE,dd MMMM" );
+        SimpleDateFormat sd2 =   new SimpleDateFormat( "EEEE, dd MMMM" );
         String s = sd2.format(dateDate);
         binding.date.setText(s);
         binding.time.setText(startTime + " - " +endTime);
@@ -185,23 +185,25 @@ public class ActivityDataFragment extends Fragment {
 
 
     /**
-     * init barchart table
+     * 初始化BarChart图表
      */
     private void initBarChart(BarChart barChart) {
-        //background
+        /***图表设置***/
+        //背景颜色
         barChart.setBackgroundColor(Color.TRANSPARENT);
-        //not show the drawgrid background
+        //不显示图表网格
         barChart.setDrawGridBackground(false);
-        //shadow
+        //背景阴影
         barChart.setDrawBarShadow(false);
         barChart.setHighlightFullBarEnabled(false);
-        //show borders
+        //显示边框
         barChart.setDrawBorders(true);
-        //set animation
+        //设置动画效果
         barChart.animateY(1000, Easing.Linear);
         barChart.animateX(1000, Easing.Linear);
 
-
+        /***XY轴的设置***/
+        //X轴设置显示位置在底部
         xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setAxisMinimum(0f);
@@ -209,19 +211,22 @@ public class ActivityDataFragment extends Fragment {
 
         leftAxis = barChart.getAxisLeft();
         rightAxis = barChart.getAxisRight();
-        //ensure y start with 0
+        //保证Y轴从0开始，不然会上移一点
         leftAxis.setAxisMinimum(0f);
         rightAxis.setAxisMinimum(0f);
 //        yAxis.setAxisMinValue(0);
 
 
+        /***折线图例 标签 设置***/
         legend = barChart.getLegend();
         legend.setEnabled(false);
 //        legend.setForm(Legend.LegendForm.LINE);
 //        legend.setTextSize(11f);
+//        //显示位置
 //        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
 //        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
 //        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+//        //是否绘制在图表里面
 //        legend.setDrawInside(false);
         barChart.setDrawBorders(false);
 
@@ -233,7 +238,9 @@ public class ActivityDataFragment extends Fragment {
         rightAxis.setDrawAxisLine(false);
         leftAxis.setEnabled(false);
         rightAxis.setEnabled(false);
+        //不显示X轴网格线
         xAxis.setDrawGridLines(false);
+//右侧Y轴网格线设置为虚线
         rightAxis.enableGridDashedLine(10f, 10f, 0f);
 
 
@@ -241,15 +248,16 @@ public class ActivityDataFragment extends Fragment {
 
 
     /**
-     * 
+     * 柱状图始化设置 一个BarDataSet 代表一列柱状图
      *
-     * @param barDataSet 
-     * @param color      
+     * @param barDataSet 柱状图
+     * @param color      柱状图颜色
      */
     private void initBarDataSet(BarDataSet barDataSet, int[] color) {
         barDataSet.setColors(color);
         barDataSet.setFormLineWidth(1f);
         barDataSet.setFormSize(15.f);
+        //不显示柱状图顶部值
         barDataSet.setDrawValues(true);
         barDataSet.setValueTextSize(12f);
 //        barDataSet.setValueTextColor(color);
@@ -283,7 +291,7 @@ public class ActivityDataFragment extends Fragment {
             String[] hoursWeatherData = aHoursData.split("/");
             long date = Long.parseLong(hoursWeatherData[0]);
             String format = "HH:mm";
-            Date currentDate = new Date(date * 1000);//get current datetime
+            Date currentDate = new Date(date * 1000);//获取当前时间
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             String currentDateString = sdf.format(currentDate);
 
@@ -326,10 +334,12 @@ public class ActivityDataFragment extends Fragment {
 //        final String[] hoursName = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; // Your List / array with String Values For X-axis Labels
         xAxis.setValueFormatter(new IndexAxisValueFormatter(hoursName));
 
+        // 每一个BarDataSet代表一类柱状图
         BarDataSet barDataSet = new BarDataSet(entries, name);
 
         initBarDataSet(barDataSet, hoursColor);
 
+//        // 添加多个BarDataSet时
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet);
 

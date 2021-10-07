@@ -40,6 +40,7 @@ import com.example.sun_safe_app.retrofit.RetrofitClient;
 import com.example.sun_safe_app.retrofit.RetrofitInterface;
 import com.example.sun_safe_app.retrofit.WeatherResponse;
 import com.example.sun_safe_app.ui.activityPlan.ActivityDataFragment;
+import com.example.sun_safe_app.ui.intro.IntroFragment;
 import com.example.sun_safe_app.ui.mySkin.MySkinFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragment;
 import com.example.sun_safe_app.ui.uvi.UviFragmentLatLongModel;
@@ -122,71 +123,87 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        String token = getString(R.string.mapbox_access_token);
 //        Mapbox.getInstance(this,token);
 
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_activity, R.id.chooseClothesFragment
-                , R.id.navigation_protection)
-                .build();
+        SharedPreferences sharedPref=
+                getSharedPreferences("Default", Context.MODE_PRIVATE);
+        boolean check = sharedPref.getBoolean("ifFirstTime",true);
+        if (check) {
+            // The user hasn't seen the OnboardingFragment yet, so show it
+            Intent intent = new Intent();
+            //setClass函数的第一个参数是一个Context对象
+            //Context是一个类，Activity是Context类的子类，也就是说，所有的Activity对象，都可以向上转型为Context对象
+            //setClass函数的第二个参数是一个Class对象，在当前场景下，应该传入需要被启动的Activity类的class对象
+            intent.setClass(MainActivity.this, OnBoardingTwoActivity.class);
+            startActivity(intent);
+            finish();
 
-        //origin
+        }
+        else {
+
+
+            BottomNavigationView navView = findViewById(R.id.nav_view);
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
+            AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.navigation_uvi, R.id.navigation_my_skin, R.id.navigation_activity, R.id.chooseClothesFragment
+                    , R.id.navigation_protection)
+                    .build();
+
+            //origin
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
 //         try
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        NavHostFragment navHostFragment = (NavHostFragment)
-                fragmentManager.findFragmentById(R.id.nav_host_fragment);
-        NavController navController = navHostFragment.getNavController();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            NavHostFragment navHostFragment = (NavHostFragment)
+                    fragmentManager.findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+            NavigationUI.setupWithNavController(navView, navController);
 //
-        NavigationUI.setupWithNavController(binding.navView, navController);
-        //Sets up a Toolbar for use with a NavController.
+            NavigationUI.setupWithNavController(binding.navView, navController);
+            //Sets up a Toolbar for use with a NavController.
 //        NavigationUI.setupWithNavController(binding.appBar.toolbar, navController,
 //                appBarConfiguration);
 
 
+            ActionBar actionbar = getSupportActionBar();
+            actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
+            actionbar.hide();
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_toolbar));
-        actionbar.hide();
-
-        if ( Build.VERSION.SDK_INT >= 23){
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                    PackageManager.PERMISSION_GRANTED  ){
-                requestPermissions(new String[]{
-                                android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        REQUEST_CODE_ASK_PERMISSIONS);
-                return ;
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{
+                                    android.Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_CODE_ASK_PERMISSIONS);
+                    return;
+                }
             }
-        }
 
-        getLocation();
-
+            getLocation();
 
 
-        Intent intent = getIntent();
-        int bigMake = intent.getIntExtra("bigMake", 0);
-        if (bigMake == 1) {
-            intent.putExtra("bigMake", 0);
-            MySkinFragment aFragment = new MySkinFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment, aFragment).commit();
+            Intent intent = getIntent();
+            int bigMake = intent.getIntExtra("bigMake", 0);
+            if (bigMake == 1) {
+                intent.putExtra("bigMake", 0);
+                MySkinFragment aFragment = new MySkinFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, aFragment).commit();
 //            getSupportActionBar().setTitle("My Skin");
 
 
-        }
+            }
 
 
-        int prev_nav_item = 0;
+            int prev_nav_item = 0;
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
 //        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -209,14 +226,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //
 //            }
 //        }), new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        try {
-             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        }catch (Exception ex){}
-        try{
-             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        }catch (Exception ex){}
-        if(!gps_enabled && !network_enabled){
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            try {
+                gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            } catch (Exception ex) {
+            }
+            try {
+                network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            } catch (Exception ex) {
+            }
+            if (!gps_enabled && !network_enabled) {
 //            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 //            dialog.setMessage("You have turned off you location service! To use this app, you need to turn on this service.");
 //            dialog.setPositiveButton("Open Location", new DialogInterface.OnClickListener() {
@@ -235,7 +254,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //                }
 //            });
 //            dialog.show();
+            }
+
         }
+
 
     }
 
@@ -317,13 +339,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 
-    public void replaceFragment(Fragment nextFragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.animate_slide_left_enter, R.anim.animate_slide_left_exit, R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit)
-                .add(R.id.nav_host_fragment, new ActivityDataFragment())
-                .addToBackStack(null)
-                .commit();
+    private void replaceFragment(Fragment nextFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =
+                fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment,
+                nextFragment);
+        fragmentTransaction.commit();
     }
 
     public void onClickItem(int position){
@@ -335,6 +357,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             bottomNavigationView.setSelectedItemId(R.id.navigation_protection);
         if (position == 4)
             bottomNavigationView.setSelectedItemId(R.id.navigation_my_skin);
+        if (position == 0)
+            bottomNavigationView.setSelectedItemId(R.id.navigation_uvi);
 
 
 

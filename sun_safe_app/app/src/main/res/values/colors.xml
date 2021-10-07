@@ -33,6 +33,9 @@
     <color name="colorVeryHighUV">#FD3324</color>
     <color name="colorExtremelyHighUV">#9C27B0</color>
 
+    <color name="activeIndicators">#6871d0</color>
+    <color name="inactiveIndicator">#84d4dd</color>
+    <color name="textSecondary">#515151</color>
 
 
 </resources>

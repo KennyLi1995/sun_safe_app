@@ -261,17 +261,33 @@ public class ChooseClothesFragment extends Fragment {
 
                 int skinType = sharedPref2.getInt("skinType",0);
                 String s = "";
-                if (skinType == 1 || skinType == 2 || skinType == 0) {
-                    spf = 50;
-                    s = "Sunscreen with SPF 50 or higher";
+                Bundle b = getArguments();
+                boolean check = false;
+                if (b!= null)
+                    check = b.getBoolean("ifSnow",false);
+                if (!check) {
+                    if (skinType == 1 || skinType == 2 || skinType == 0) {
+                        spf = 50;
+                        s = "Sunscreen with SPF 50 or higher";
+                    } else if (skinType == 3 || skinType == 4) {
+                        spf = 30;
+                        s = "Sunscreen with SPF 30 or higher";
+                    } else if (skinType == 5 || skinType == 6) {
+                        spf = 15;
+                        s = "Sunscreen with SPF 15 or higher";
+                    }
                 }
-                else if (skinType == 3 || skinType == 4) {
-                    spf = 30;
-                    s = "Sunscreen with SPF 30 or higher";
-                }
-                else if (skinType == 5 || skinType == 6) {
-                    spf = 15;
-                    s = "Sunscreen with SPF 15 or higher";
+                else {
+                    if (skinType == 1 || skinType == 2 || skinType == 0) {
+                        spf = 50;
+                        s = "Sunscreen with SPF 50 or higher";
+                    } else if (skinType == 3 || skinType == 4) {
+                        spf = 50;
+                        s = "Sunscreen with SPF 50 or higher";
+                    } else if (skinType == 5 || skinType == 6) {
+                        spf = 30;
+                        s = "Sunscreen with SPF 30 or higher";
+                    }
                 }
                 spEditor.putString("spfRecommendation", s);
                 spEditor.putString("sunscreenAmount",
@@ -283,7 +299,7 @@ public class ChooseClothesFragment extends Fragment {
                     @Override
                     public void onConfirm(SunScreenResultDialog dialog) {
                         MainActivity activity = (MainActivity) getActivity();
-                        activity.onClickItem(2);
+                        activity.onClickItem(1);
                     }
                 });
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

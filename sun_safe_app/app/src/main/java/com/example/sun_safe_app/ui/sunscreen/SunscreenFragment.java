@@ -71,6 +71,34 @@ public class SunscreenFragment extends Fragment {
                 }
             });
 
+            binding.snowActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    CommonDialog dialog = new CommonDialog(getContext());
+                    dialog.setTitle("Not create user profile");
+                    dialog.setMessage2("To calculate your sunscreen amount, You need to create your user profile first");
+                    dialog.setCancel("Not now", new CommonDialog.OnCancelListener() {
+                        @Override
+                        public void onCancel(CommonDialog dialog) {
+                        }
+                    });
+                    dialog.setConfirm("Do it now", new CommonDialog.OnConfirmListener() {
+                        @Override
+                        public void onConfirm(CommonDialog dialog) {
+                            MainActivity activity = (MainActivity) getActivity();
+                            activity.onClickItem(4);
+                        }
+                    });
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
+
+
+                }
+            });
+
+
             binding.swimmingActivity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,6 +128,13 @@ public class SunscreenFragment extends Fragment {
             binding.walkingActivity.setOnClickListener(
                     Navigation.createNavigateOnClickListener(R.id.chooseClothesFragment, null)
             );
+            Bundle snowBunle = new Bundle();
+            snowBunle.putBoolean("ifSnow", true);
+            binding.snowActivity.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.chooseClothesFragment, snowBunle)
+            );
+
+
             binding.swimmingActivity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -167,7 +202,7 @@ public class SunscreenFragment extends Fragment {
                         @Override
                         public void onConfirm(SunScreenResultDialog dialog) {
                             MainActivity activity = (MainActivity) getActivity();
-                            activity.onClickItem(2);
+                            activity.onClickItem(1);
                         }
                     });
                     dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

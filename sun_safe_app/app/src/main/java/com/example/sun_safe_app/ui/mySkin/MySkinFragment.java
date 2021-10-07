@@ -119,8 +119,6 @@ public class MySkinFragment extends Fragment {
         binding.informationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 ProfileFragmentDialog myDialog = new ProfileFragmentDialog();
                 myDialog.show(getActivity().getSupportFragmentManager(),"myDialog");
 
@@ -212,6 +210,7 @@ public class MySkinFragment extends Fragment {
                 getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         if(sharedPref.getBoolean("ifInput",false)){
             binding.cross.setVisibility(View.GONE);
+            binding.createYourProfile.setVisibility(View.GONE);
 
 
             binding.nameText.setText(sharedPref.getString("name",""));

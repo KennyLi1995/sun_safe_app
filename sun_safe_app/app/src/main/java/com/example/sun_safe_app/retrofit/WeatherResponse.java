@@ -16,4 +16,7 @@ public class WeatherResponse {
     @SerializedName("hourly")
     public ArrayList<Hourly> hourly = new ArrayList<Hourly>();
 
+    @SerializedName("daily")
+    public ArrayList<Daily> daily = new ArrayList<Daily>();
+
 }

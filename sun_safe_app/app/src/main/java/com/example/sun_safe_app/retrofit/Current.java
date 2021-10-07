@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Current {
+    @SerializedName("sunrise")
+    public long sunrise;
+    @SerializedName("sunset")
+    public long sunset;
     @SerializedName("uvi")
     public float uvi;
     @SerializedName("temp")

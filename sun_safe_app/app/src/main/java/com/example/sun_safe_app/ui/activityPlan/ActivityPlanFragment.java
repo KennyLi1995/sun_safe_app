@@ -264,7 +264,9 @@ public class ActivityPlanFragment extends Fragment {
 
                     Calendar mCalendar = new GregorianCalendar();
                     TimeZone mTimeZone = mCalendar.getTimeZone();
-                    int system_offset = mTimeZone.getRawOffset()/1000;
+                    int system_offset = mTimeZone.getRawOffset() + (mTimeZone.inDaylightTime(new Date()) ? mTimeZone.getDSTSavings() : 0);
+                    system_offset /= 1000;
+//                    int system_offset = mTimeZone.getRawOffset()/1000;
 //                    HashMap<Long, String> map  = new HashMap<Long,String>();
                     ArrayList<Hourly> hourlys = weatherResponse.hourly;
                     String weatherCombinationTotal = "";
@@ -274,10 +276,10 @@ public class ActivityPlanFragment extends Fragment {
                     for(Hourly ahour: hourlys){
                         if (ahour.dt + (timezone_offset - system_offset)>= startTimeSecond  && ahour.dt + (timezone_offset - system_offset) <= endTimeSecond){
                             float uvi = (float) new BigDecimal(ahour.uvi).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-                            String weatherCombination = ahour.dt + (timezone_offset - 36000) + "/" + uvi + "/" +ahour.temp + "/" +ahour.weather.get(0).main + ",";
-                            if (uvi > highestUV){
+                            String weatherCombination = ahour.dt + (timezone_offset - system_offset) + "/" + uvi + "/" +ahour.temp + "/" +ahour.weather.get(0).main + ",";
+                            if (uvi >= highestUV){
                                 highestUV = uvi;
-                                Date date = new Date((ahour.dt + (timezone_offset - 36000)) * 1000);
+                                Date date = new Date((ahour.dt + (timezone_offset - system_offset)) * 1000);
 
                                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                                 highestHour = format2.format(date);

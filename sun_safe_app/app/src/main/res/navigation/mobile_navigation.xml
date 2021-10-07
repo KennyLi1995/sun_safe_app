@@ -9,7 +9,15 @@
         android:id="@+id/navigation_uvi"
         android:name="com.example.sun_safe_app.ui.uvi.UviFragment"
         android:label="UVI"
-        tools:layout="@layout/fragment_uvi" />
+        tools:layout="@layout/fragment_uvi" >
+        <action
+            android:id="@+id/action_navigation_uvi_to_uvForecast"
+            app:destination="@id/uvForecast"
+            app:enterAnim="@anim/fragment_slide_left_enter"
+            app:exitAnim="@anim/fragment_slide_left_exit"
+            app:popEnterAnim="@anim/fragment_slide_right_enter"
+            app:popExitAnim="@anim/fragment_slide_right_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_my_skin"
@@ -75,6 +83,10 @@
         android:id="@+id/navigation_info"
         android:name="com.example.sun_safe_app.ui.info.DataInfoFragment"
         android:label="DataInfoFragment" />
+    <fragment
+        android:id="@+id/uvForecast"
+        android:name="com.example.sun_safe_app.ui.uvForecast.uvForecast"
+        android:label="UVI Forecast" />
 </navigation>
 
 

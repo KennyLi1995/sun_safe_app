@@ -30,6 +30,12 @@
         <item name="android:windowExitAnimation">@anim/dialog_out_anim</item>
     </style>
 
+    <style name="AppTheme.TWO" parent="@style/Theme.Sun_safe_app">
+        <item name="colorPrimary">@color/activeIndicators</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
 
 
 

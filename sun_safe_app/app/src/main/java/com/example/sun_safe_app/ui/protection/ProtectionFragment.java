@@ -214,6 +214,8 @@ public class ProtectionFragment extends Fragment {
                     spEditor.putLong("startTrackTime",System.currentTimeMillis());
                     spEditor.putString("track","Stop tracking");
                     spEditor.apply();
+                    MainActivity activity = (MainActivity) getActivity();
+                    activity.onClickItem(0);
                 }
                 else{
                     binding.errorMessage.setVisibility(View.VISIBLE);
@@ -233,6 +235,7 @@ public class ProtectionFragment extends Fragment {
                     MainActivity parentActivity = (MainActivity) getActivity();
                     parentActivity.setAlarmForSunscreen(false, 1);
                     parentActivity.setAlarmForSunSafeTime(false, 1);
+                    parentActivity.onClickItem(0);
 
                 }
             }

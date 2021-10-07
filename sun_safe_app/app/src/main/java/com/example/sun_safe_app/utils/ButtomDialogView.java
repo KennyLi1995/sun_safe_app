@@ -320,7 +320,7 @@ public class ButtomDialogView extends Dialog {
 
             if (endDate != null & startDate != null){
                 if (endDate.getTime() - 3600000 <= startDate.getTime()){
-                    errorMessage += "\n*End time must be at least one hour than start time";
+                    errorMessage += "\n*End time must be at least one hour more than start time";
                 }
             }
 

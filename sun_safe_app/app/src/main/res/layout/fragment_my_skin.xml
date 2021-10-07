@@ -122,31 +122,7 @@
                 android:textSize="32dp"
                 />
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:id="@+id/gender"-->
-<!--                android:visibility="invisible"-->
-<!--                app:layout_constraintLeft_toLeftOf="@+id/nameText"-->
-<!--                android:text="Gender"-->
-<!--                android:textColor="#B8C5D0"-->
-<!--                android:textSize="15dp"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/nameText"-->
-<!--                />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/genderText"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintLeft_toLeftOf="@+id/nameText"-->
-<!--                android:text=""-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="invisible"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18dp"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/gender"-->
-<!--                />-->
 
 
             <TextView
@@ -220,7 +196,22 @@
 
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create your profile"
+                android:textStyle="bold"
+                android:id="@+id/createYourProfile"
+                android:textColor="#8079838B"
+                android:textSize="18dp"
+                android:visibility="visible"
+                rsv:layout_constraintLeft_toLeftOf="parent"
+                rsv:layout_constraintRight_toRightOf="parent"
+                rsv:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
 
+
+                />
 
 
 

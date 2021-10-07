@@ -214,21 +214,20 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="10dp"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/highestUV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Above 90% of the time during the summer, the UV in Australia is either at the level of extremely high or very high. Even during the spring or autumn, the UV in most erea could reach at least the high level more than 50% of the time. Taking appropriate protection to prevent youself from sunburn is literally neccessary."
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
