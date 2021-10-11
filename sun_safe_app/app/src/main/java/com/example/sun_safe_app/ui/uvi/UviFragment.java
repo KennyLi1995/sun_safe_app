@@ -396,21 +396,35 @@ public class UviFragment extends Fragment {
         long time=System.currentTimeMillis();
         mCalendar.setTimeInMillis(time);
         int mHour=mCalendar.get(Calendar.HOUR_OF_DAY);
-        if (mHour >= 6 && mHour < 12){
-            binding.hiMessage.setText("Good morning, " + sharedPref.getString("name", "new user"));
+        if (!sharedPref.getString("name", "").equals("")) {
+            if (mHour >= 6 && mHour < 12) {
+                binding.hiMessage.setText("Good morning, " + sharedPref.getString("name", "new user"));
 
+            } else if (mHour >= 12 && mHour < 18) {
+                binding.hiMessage.setText("Good afternoon, " + sharedPref.getString("name", "new user"));
+
+            } else if (mHour >= 18 && mHour < 21) {
+                binding.hiMessage.setText("Good evening, " + sharedPref.getString("name", "new user"));
+
+            } else if (mHour >= 21 || mHour < 6) {
+                binding.hiMessage.setText("Good night, " + sharedPref.getString("name", "new user"));
+
+            }
         }
-        else if(mHour >= 12 && mHour < 18){
-            binding.hiMessage.setText("Good afternoon, " + sharedPref.getString("name", "new user"));
+        else{
+            if (mHour >= 6 && mHour < 12) {
+                binding.hiMessage.setText("Good morning!");
 
-        }
-        else if(mHour >= 18 && mHour < 21){
-            binding.hiMessage.setText("Good evening, " + sharedPref.getString("name", "new user"));
+            } else if (mHour >= 12 && mHour < 18) {
+                binding.hiMessage.setText("Good afternoon!");
 
-        }
-        else if(mHour >= 21 || mHour < 6){
-            binding.hiMessage.setText("Good night, " + sharedPref.getString("name", "new user"));
+            } else if (mHour >= 18 && mHour < 21) {
+                binding.hiMessage.setText("Good evening!");
 
+            } else if (mHour >= 21 || mHour < 6) {
+                binding.hiMessage.setText("Good night!");
+
+            }
         }
 
     }

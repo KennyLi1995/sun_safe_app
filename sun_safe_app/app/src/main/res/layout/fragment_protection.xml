@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:singleLine="false"
-                        android:text="CALCULATED THE OPTIMAL SPF FOR YOUR SKIN TYPE"
+                        android:text="CALCULATE THE OPTIMAL SPF FOR YOUR SKIN TYPE"
                         android:textColor="#3771C8"
                         android:textSize="10sp"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -180,9 +180,9 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="Risk of sunburn in"
+                        android:text="Your safe sun exposure time is"
                         android:textColor="#3771C8"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -260,7 +260,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Minimal risk \n(Over 8 hours)"
+                            android:text="Over 8 hours\n(Minimal risk)"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -289,9 +289,9 @@
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:gravity="center"
-                        android:text="OUTSIDE AT CURRENT\nUV INDEX"
+                        android:text="*Toggle the SPF to observe\nchanges in exposure time"
                         android:textColor="#3771C8"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
